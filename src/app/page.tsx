@@ -12,7 +12,7 @@ export default function Home() {
           <Link href="/docs" className="hover:text-white transition-colors">Documentation</Link>
           <a href="https://github.com/emergencescience" className="hover:text-white transition-colors">GitHub</a>
           <Link
-            href="http://localhost:8000/auth/github/login"
+            href={`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/auth/github/login`}
             className="bg-white text-black px-5 py-2 rounded-full hover:bg-zinc-200 transition-all font-bold hover:scale-105 active:scale-95"
           >
             Get API Key
@@ -44,7 +44,7 @@ export default function Home() {
 
             <div className="flex flex-col sm:flex-row gap-4 mb-24">
               <Link
-                href="http://localhost:8000/auth/github/login"
+                href={`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/auth/github/login`}
                 className="group flex items-center justify-center gap-2 bg-blue-600 px-8 py-4 rounded-xl text-lg font-bold hover:bg-blue-500 transition-all hover:shadow-[0_0_40px_rgba(37,99,235,0.4)] active:scale-95"
               >
                 Sign In with GitHub
