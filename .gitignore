@@ -1,0 +1,12 @@
+node_modules
+.next
+.env.local
+.env.*.local
+!/.env.example
+
+# User-specific files
+.DS_Store
+
+# IDE files
+.vscode/
+.idea/
