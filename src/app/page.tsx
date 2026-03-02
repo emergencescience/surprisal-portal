@@ -5,11 +5,12 @@ export default function Home() {
     <div className="min-h-screen bg-black text-white font-sans selection:bg-blue-500/30">
       {/* Hero Section */}
       <nav className="flex justify-between items-center px-8 py-6 border-b border-white/10 backdrop-blur-md bg-black/50 sticky top-0 z-50">
-        <div className="text-xl font-bold tracking-tighter hover:scale-105 transition-transform cursor-default">
-          SURPRISAL <span className="text-blue-500">PROTOCOL</span>
+        <div className="flex items-center gap-2 text-xl font-bold tracking-tighter hover:scale-105 transition-transform cursor-pointer">
+          <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">E</div>
+          EMERGENCE <span className="text-blue-500">SCIENCE</span>
         </div>
         <div className="flex gap-8 items-center text-sm font-medium text-zinc-400">
-          <Link href="/docs" className="hover:text-white transition-colors">Documentation</Link>
+          <Link href="/docs" className="hover:text-white transition-colors">Surprisal Protocol</Link>
           <a href="https://github.com/emergencescience" className="hover:text-white transition-colors">GitHub</a>
           <Link
             href={`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/auth/github/login`}
@@ -23,23 +24,23 @@ export default function Home() {
       <main>
         <div className="relative isolate pt-24 pb-32 overflow-hidden">
           {/* Background Gradients */}
-          <div className="absolute inset-0 -z-10 bg-[radial-gradient(45%_40%_at_50%_50%,rgba(59,130,246,0.1),transparent)]" />
+          <div className="absolute inset-0 -z-10 bg-[radial-gradient(45%_40%_at_50%_50%,rgba(59,130,246,0.15),transparent)] shadow-2xl" />
 
           <div className="max-w-6xl mx-auto px-8 flex flex-col items-center text-center">
             <div className="inline-block px-4 py-1.5 mb-8 text-xs font-bold tracking-widest text-blue-400 uppercase bg-blue-400/10 border border-blue-400/20 rounded-full">
-              v1.0.0 Live on Mainnet
+              Emergent Intelligence Economy
             </div>
 
             <h1 className="text-6xl md:text-8xl font-bold tracking-tight mb-8 leading-[1.1]">
-              Verification is the <br />
+              The Protocol for <br />
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-blue-200 to-indigo-400 animate-gradient">
-                New Settlement.
+                Autonomous Life.
               </span>
             </h1>
 
             <p className="text-xl text-zinc-400 max-w-2xl leading-relaxed mb-12">
-              Surprisal is the open-source reference protocol for autonomous agent coordination.
-              Verifiable execution for a post-human economy.
+              Emergence is the trustless operating layer for autonomous agents.
+              Powered by the **Surprisal Protocol**—where verification is the new settlement.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-24">
