@@ -6,30 +6,83 @@ import Link from "next/link";
 
 function CallbackContent() {
     const searchParams = useSearchParams();
-    const [apiKey, setApiKey] = useState<string | null>(null);
-    const [username, setUsername] = useState<string | null>(null);
-    const [message, setMessage] = useState<string | null>(null);
+    const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
+    const [authData, setAuthData] = useState<{ apiKey: string; username: string; message: string } | null>(null);
+    const [error, setError] = useState<string | null>(null);
     const [copied, setCopied] = useState(false);
 
     useEffect(() => {
-        setApiKey(searchParams.get("api_key"));
-        setUsername(searchParams.get("username"));
-        setMessage(searchParams.get("message"));
+        const code = searchParams.get("code");
+        if (!code) {
+            setStatus('error');
+            setError("No authorization code provided from GitHub.");
+            return;
+        }
+
+        const exchangeCode = async () => {
+            try {
+                const apiBase = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+                const res = await fetch(`${apiBase}/auth/github/callback?code=${code}`);
+
+                if (!res.ok) {
+                    const errorJson = await res.json().catch(() => ({}));
+                    throw new Error(errorJson.detail || "Identity verification failed.");
+                }
+
+                const data = await res.json();
+                setAuthData({
+                    apiKey: data.api_key,
+                    username: data.username,
+                    message: data.message
+                });
+                setStatus('success');
+            } catch (err: any) {
+                console.error("Auth Exception:", err);
+                setStatus('error');
+                setError(err.message);
+            }
+        };
+
+        exchangeCode();
     }, [searchParams]);
 
     const copyToClipboard = () => {
-        if (apiKey) {
-            navigator.clipboard.writeText(apiKey);
+        if (authData?.apiKey) {
+            navigator.clipboard.writeText(authData.apiKey);
             setCopied(true);
             setTimeout(() => setCopied(false), 2000);
         }
     };
 
-    if (!apiKey) {
+    if (status === 'loading') {
         return (
             <div className="flex flex-col items-center justify-center min-h-[60vh] text-center">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500 mb-4"></div>
-                <p className="text-zinc-400 font-medium tracking-tight">Finalizing Authentication...</p>
+                <div className="relative mb-8">
+                    <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-500"></div>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
+                    </div>
+                </div>
+                <h2 className="text-2xl font-bold mb-2 tracking-tight">Verifying Identity</h2>
+                <p className="text-zinc-500 font-medium tracking-tight animate-pulse">Exchanging credentials with the Surprisal Orchestrator...</p>
+            </div>
+        );
+    }
+
+    if (status === 'error') {
+        return (
+            <div className="max-w-md mx-auto pt-12 pb-24 px-8 text-center">
+                <div className="bg-red-500/10 border border-red-500/20 rounded-3xl p-12 backdrop-blur-xl">
+                    <div className="text-4xl mb-6">⚠️</div>
+                    <h1 className="text-2xl font-bold mb-4">Authentication Failed</h1>
+                    <p className="text-zinc-400 mb-8 leading-relaxed">{error}</p>
+                    <Link
+                        href="/"
+                        className="inline-block w-full py-4 rounded-xl bg-white text-black font-bold hover:bg-zinc-200 transition-all active:scale-95"
+                    >
+                        Try Again
+                    </Link>
+                </div>
             </div>
         );
     }
@@ -46,10 +99,10 @@ function CallbackContent() {
                         Authenticated
                     </div>
                     <h1 className="text-4xl font-bold mb-3 tracking-tight leading-tight">
-                        {message || "Welcome to the Protocol"}
+                        {authData?.message || "Welcome to the Protocol"}
                     </h1>
                     <p className="text-zinc-400 text-lg">
-                        Agent <span className="text-white font-semibold">@{username}</span> is now active.
+                        Agent <span className="text-white font-semibold">@{authData?.username}</span> is now active.
                     </p>
                 </div>
 
@@ -60,13 +113,13 @@ function CallbackContent() {
                         </label>
                         <div className="flex flex-col gap-4">
                             <div className="bg-zinc-900 rounded-xl p-5 border border-white/5 font-mono text-xl text-blue-400 break-all select-all leading-relaxed tracking-tight">
-                                {apiKey}
+                                {authData?.apiKey}
                             </div>
                             <button
                                 onClick={copyToClipboard}
                                 className={`w-full py-4 rounded-xl flex items-center justify-center gap-3 font-bold transition-all active:scale-95 ${copied
-                                        ? 'bg-green-500/20 text-green-400 border border-green-500/30'
-                                        : 'bg-white text-black hover:bg-zinc-200'
+                                    ? 'bg-green-500/20 text-green-400 border border-green-500/30'
+                                    : 'bg-white text-black hover:bg-zinc-200'
                                     }`}
                             >
                                 {copied ? (
