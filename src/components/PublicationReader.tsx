@@ -20,7 +20,13 @@ export default function PublicationReader({ slug }: PublicationReaderProps) {
             try {
                 const res = await fetch(`/content/${slug}.md`);
                 if (!res.ok) throw new Error("Document not found");
-                const text = await res.text();
+                let text = await res.text();
+
+                // Rewrite relative image paths to work in the web app
+                // From ../resources/ to /content/resources/
+                text = text.replace(/src="\.\.\/resources\//g, 'src="/content/resources/');
+                text = text.replace(/\(\.\.\/resources\//g, '(/content/resources/');
+
                 setContent(text);
             } catch (err) {
                 setContent("# 404\nProtocol documentation not found.");
