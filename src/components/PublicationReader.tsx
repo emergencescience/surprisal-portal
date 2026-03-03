@@ -3,15 +3,52 @@
 import React, { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
 import rehypeHighlight from "rehype-highlight";
 import rehypeRaw from "rehype-raw";
+import rehypeKatex from "rehype-katex";
+import "katex/dist/katex.min.css";
 import "highlight.js/styles/github-dark.css"; // High-fidelity dark mode code style
 import { ArrowLeft, ExternalLink, Terminal, Copy, Check } from "lucide-react";
 import Link from "next/link";
+import mermaid from "mermaid";
 
 interface PublicationReaderProps {
     slug: string;
 }
+
+// Low-level component to render Mermaid diagrams
+const Mermaid = ({ chart }: { chart: string }) => {
+    const [svg, setSvg] = useState<string>("");
+
+    useEffect(() => {
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: "dark",
+            securityLevel: "loose",
+            fontFamily: "Inter, sans-serif",
+        });
+
+        const renderChart = async () => {
+            const id = `mermaid-${Math.random().toString(36).substr(2, 9)}`;
+            try {
+                const { svg } = await mermaid.render(id, chart);
+                setSvg(svg);
+            } catch (err) {
+                console.error("Mermaid parsing error:", err);
+            }
+        };
+
+        renderChart();
+    }, [chart]);
+
+    return (
+        <div
+            className="flex justify-center my-12 p-8 bg-black/40 border border-white/5 rounded-lg shadow-2xl overflow-x-auto"
+            dangerouslySetInnerHTML={{ __html: svg }}
+        />
+    );
+};
 
 export default function PublicationReader({ slug }: PublicationReaderProps) {
     const [content, setContent] = useState<string>("");
@@ -21,12 +58,21 @@ export default function PublicationReader({ slug }: PublicationReaderProps) {
     useEffect(() => {
         async function loadContent() {
             try {
-                const res = await fetch(`/content/${slug}.md`);
+                const res = await fetch(`/content/protocol/${slug}.md`);
                 if (!res.ok) throw new Error("Document not found");
                 let text = await res.text();
 
-                // Rewrite relative image paths to work in the web app
-                // From ../resources/ to /content/resources/
+                // Rewrite relative image paths relative to the folder the slug is in
+                // Protocol slug: "verified-node/..." -> Resources: "/content/protocol/verified-node/resources/"
+                const slugParts = slug.split('/');
+                const folder = slugParts.length > 1 ? slugParts.slice(0, -1).join('/') : '';
+                const baseResourcePath = `/content/protocol/${folder ? folder + '/' : ''}resources/`;
+
+                text = text.replace(/src="\.\/resources\//g, `src="${baseResourcePath}`);
+                text = text.replace(/src='\.\/resources\//g, `src='${baseResourcePath}`);
+                text = text.replace(/\(\.\/resources\//g, `(${baseResourcePath}`);
+
+                // Keep backward compatibility for ../resources/
                 text = text.replace(/src="\.\.\/resources\//g, 'src="/content/resources/');
                 text = text.replace(/src='\.\.\/resources\//g, "src='/content/resources/");
                 text = text.replace(/\(\.\.\/resources\//g, '(/content/resources/');
@@ -101,8 +147,8 @@ export default function PublicationReader({ slug }: PublicationReaderProps) {
                 prose-pre:bg-black prose-pre:border prose-pre:border-white/10 prose-pre:p-0
                 prose-strong:text-white prose-a:text-emerald-400 prose-a:no-underline hover:prose-a:underline">
                 <ReactMarkdown
-                    remarkPlugins={[remarkGfm]}
-                    rehypePlugins={[rehypeHighlight, rehypeRaw]}
+                    remarkPlugins={[remarkGfm, remarkMath]}
+                    rehypePlugins={[rehypeHighlight, rehypeRaw, rehypeKatex]}
                     components={{
                         // Prevent Hydration Error: Unpack P if it contains Figure/Img
                         p: ({ children }) => {
@@ -111,6 +157,14 @@ export default function PublicationReader({ slug }: PublicationReaderProps) {
                             );
                             if (hasImage) return <div className="my-10">{children}</div>;
                             return <p className="mb-8">{children}</p>;
+                        },
+                        // Custom code renderer for Mermaid
+                        code: ({ node, className, children, ...props }: any) => {
+                            const match = /language-mermaid/.exec(className || "");
+                            if (match) {
+                                return <Mermaid chart={String(children).replace(/\n$/, "")} />;
+                            }
+                            return <code className={className} {...props}>{children}</code>;
                         },
                         // High-Fidelity Image Rendering (Markdown + HTML)
                         img: ({ node, ...props }) => (
