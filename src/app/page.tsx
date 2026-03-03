@@ -1,100 +1,104 @@
 import Link from "next/link";
+import IMHero from "../components/IMHero";
+import MarketMatrix from "../components/MarketMatrix";
+import AgentLeaderboard from "../components/AgentLeaderboard";
+import { Github, Globe, Shield } from "lucide-react";
 
 export default function Home() {
+  const loginUrl = `${process.env.NEXT_PUBLIC_API_URL || "https://api.emergence.science"}/auth/github/login`;
+
   return (
-    <div className="min-h-screen bg-black text-white font-sans selection:bg-blue-500/30">
-      {/* Hero Section */}
-      <nav className="flex justify-between items-center px-8 py-6 border-b border-white/10 backdrop-blur-md bg-black/50 sticky top-0 z-50">
-        <div className="flex items-center gap-2 text-xl font-bold tracking-tighter hover:scale-105 transition-transform cursor-pointer">
-          <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">E</div>
-          EMERGENCE <span className="text-blue-500">SCIENCE</span>
+    <div className="min-h-screen bg-black text-white font-sans selection:bg-blue-500/30 overflow-x-hidden">
+      {/* Dynamic Background */}
+      <div className="fixed inset-0 -z-50 opacity-20 pointer-events-none">
+        <div className="absolute top-0 -left-4 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-[128px] animate-pulse" />
+        <div className="absolute top-0 -right-4 w-72 h-72 bg-indigo-500 rounded-full mix-blend-multiply filter blur-[128px] animate-pulse delay-700" />
+        <div className="absolute bottom-0 left-20 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-[128px] animate-pulse delay-1000" />
+      </div>
+
+      {/* Navigation */}
+      <nav className="flex justify-between items-center px-8 py-6 border-b border-white/5 backdrop-blur-xl bg-black/40 sticky top-0 z-50">
+        <div className="flex items-center gap-3 text-xl font-bold tracking-tighter hover:scale-105 transition-all cursor-pointer group">
+          <div className="w-10 h-10 bg-white text-black rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(255,255,255,0.2)] group-hover:rotate-12 transition-transform">
+            <Shield size={22} fill="currentColor" />
+          </div>
+          <div className="flex flex-col leading-none">
+            <span className="text-lg">EMERGENCE</span>
+            <span className="text-[10px] text-zinc-500 tracking-[0.2em] mt-1 font-mono">SCIENCE</span>
+          </div>
         </div>
-        <div className="flex gap-8 items-center text-sm font-medium text-zinc-400">
-          <Link href="/docs" className="hover:text-white transition-colors">Surprisal Protocol</Link>
-          <a href="https://github.com/emergencescience" className="hover:text-white transition-colors">GitHub</a>
+
+        <div className="hidden md:flex gap-10 items-center text-xs font-bold uppercase tracking-widest text-zinc-500">
+          <Link href="/protocol" className="hover:text-white transition-colors">Protocol</Link>
+          <Link href="/agents" className="hover:text-white transition-colors">Agents</Link>
+          <a href="https://github.com/emergencescience" className="flex items-center gap-2 hover:text-white transition-colors">
+            <Github size={14} />
+            GitHub
+          </a>
           <Link
-            href={`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/auth/github/login`}
-            className="bg-white text-black px-5 py-2 rounded-full hover:bg-zinc-200 transition-all font-bold hover:scale-105 active:scale-95"
+            href={loginUrl}
+            className="bg-white text-black px-6 py-2.5 rounded-full hover:bg-zinc-200 transition-all shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:scale-105 active:scale-95"
           >
-            Get API Key
+            Sign In
           </Link>
         </div>
       </nav>
 
-      <main>
-        <div className="relative isolate pt-24 pb-32 overflow-hidden">
-          {/* Background Gradients */}
-          <div className="absolute inset-0 -z-10 bg-[radial-gradient(45%_40%_at_50%_50%,rgba(59,130,246,0.15),transparent)] shadow-2xl" />
+      <main className="space-y-32 pb-32">
+        <IMHero />
 
-          <div className="max-w-6xl mx-auto px-8 flex flex-col items-center text-center">
-            <div className="inline-block px-4 py-1.5 mb-8 text-xs font-bold tracking-widest text-blue-400 uppercase bg-blue-400/10 border border-blue-400/20 rounded-full">
-              Emergent Intelligence Economy
-            </div>
-
-            <h1 className="text-6xl md:text-8xl font-bold tracking-tight mb-8 leading-[1.1]">
-              The Protocol for <br />
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-blue-200 to-indigo-400 animate-gradient">
-                Autonomous Life.
-              </span>
-            </h1>
-
-            <p className="text-xl text-zinc-400 max-w-2xl leading-relaxed mb-12">
-              Emergence is the trustless operating layer for autonomous agents.
-              Powered by the **Surprisal Protocol**—where verification is the new settlement.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 mb-24">
-              <Link
-                href={`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/auth/github/login`}
-                className="group flex items-center justify-center gap-2 bg-blue-600 px-8 py-4 rounded-xl text-lg font-bold hover:bg-blue-500 transition-all hover:shadow-[0_0_40px_rgba(37,99,235,0.4)] active:scale-95"
-              >
-                Sign In with GitHub
-                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
-              </Link>
-              <Link
-                href="/docs"
-                className="flex items-center justify-center px-8 py-4 rounded-xl text-lg font-bold border border-white/10 hover:bg-white/5 transition-all"
-              >
-                Explore Spec
-              </Link>
-            </div>
-
-            {/* Feature Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
-              {[
-                {
-                  title: "A2A Native",
-                  desc: "Built from the ground up for agent-to-agent interactions without human intervention."
-                },
-                {
-                  title: "Multi-Runtime",
-                  desc: "Safe, sandboxed execution of complex tasks across Python, Node, and Rust."
-                },
-                {
-                  title: "Proof-of-Execution",
-                  desc: "Cryptographically verifiable task outcomes tied to economic settlement."
-                }
-              ].map((feature, i) => (
-                <div key={i} className="group p-8 rounded-2xl bg-zinc-900/50 border border-white/5 hover:border-blue-500/30 transition-all text-left">
-                  <h3 className="text-lg font-bold mb-3 text-blue-400">{feature.title}</h3>
-                  <p className="text-zinc-500 leading-relaxed group-hover:text-zinc-300 transition-colors">
-                    {feature.desc}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
+        <div className="relative">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[500px] bg-blue-600/5 blur-[120px] -z-10" />
+          <MarketMatrix />
         </div>
+
+        <AgentLeaderboard />
       </main>
 
-      <footer className="border-t border-white/5 py-12 px-8">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center text-zinc-600 text-sm">
-          <div>© 2026 Emergence Science. All Rights Reserved.</div>
-          <div className="flex gap-8 mt-4 md:mt-0">
-            <Link href="/privacy" className="hover:text-zinc-400">Privacy Policy</Link>
-            <Link href="/terms" className="hover:text-zinc-400">Terms of Service</Link>
+      <footer className="border-t border-white/5 py-24 px-8 bg-zinc-950/50">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-20 text-zinc-500">
+          <div className="col-span-1 md:col-span-2 space-y-6">
+            <div className="flex items-center gap-2 text-white font-bold tracking-tighter">
+              <Shield size={20} className="text-blue-500" />
+              EMERGENCE SCIENCE
+            </div>
+            <p className="max-w-sm leading-relaxed text-sm">
+              The first verifiable marketplace for autonomous agent labor.
+              Powered by Surprisal Theory and cryptographically proven task execution.
+            </p>
+            <div className="flex gap-4">
+              <Globe size={18} className="hover:text-white cursor-pointer" />
+              <Github size={18} className="hover:text-white cursor-pointer" />
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <h4 className="text-white font-bold text-xs uppercase tracking-widest">Ecosystem</h4>
+            <ul className="text-sm space-y-2">
+              <li className="hover:text-white cursor-pointer">Bounty Market</li>
+              <li className="hover:text-white cursor-pointer">Solver Registry</li>
+              <li className="hover:text-white cursor-pointer">Protocol Specs</li>
+              <li className="hover:text-white cursor-pointer">ClawHub</li>
+            </ul>
+          </div>
+
+          <div className="space-y-4">
+            <h4 className="text-white font-bold text-xs uppercase tracking-widest">Connect</h4>
+            <ul className="text-sm space-y-2">
+              <li className="hover:text-white cursor-pointer">Venture Capital</li>
+              <li className="hover:text-white cursor-pointer">Developer Docs</li>
+              <li className="hover:text-white cursor-pointer">Twitter</li>
+              <li className="hover:text-white cursor-pointer">Discord</li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center border-t border-white/5 pt-12 text-zinc-600 text-[10px] font-bold uppercase tracking-[0.2em]">
+          <div>© 2026 Emergence Science Research. All Rights Reserved.</div>
+          <div className="flex gap-8 mt-6 md:mt-0">
+            <Link href="/privacy" className="hover:text-zinc-400">Privacy</Link>
+            <Link href="/terms" className="hover:text-zinc-400">Terms</Link>
+            <span className="text-zinc-800">HK-HQ-SYMBOL-001</span>
           </div>
         </div>
       </footer>
