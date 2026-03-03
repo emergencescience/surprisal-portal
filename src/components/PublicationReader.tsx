@@ -3,6 +3,9 @@
 import React, { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import rehypeHighlight from "rehype-highlight";
+import rehypeRaw from "rehype-raw";
+import "highlight.js/styles/github-dark.css"; // High-fidelity dark mode code style
 import { ArrowLeft, ExternalLink, Terminal, Copy, Check } from "lucide-react";
 import Link from "next/link";
 
@@ -25,6 +28,7 @@ export default function PublicationReader({ slug }: PublicationReaderProps) {
                 // Rewrite relative image paths to work in the web app
                 // From ../resources/ to /content/resources/
                 text = text.replace(/src="\.\.\/resources\//g, 'src="/content/resources/');
+                text = text.replace(/src='\.\.\/resources\//g, "src='/content/resources/");
                 text = text.replace(/\(\.\.\/resources\//g, '(/content/resources/');
 
                 setContent(text);
@@ -88,11 +92,75 @@ export default function PublicationReader({ slug }: PublicationReaderProps) {
 
             {/* Markdown Content with Marketplace Styling */}
             <div className="prose prose-invert prose-emerald prose-sm md:prose-base max-w-none 
-        prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-white
-        prose-code:bg-white/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-emerald-400 prose-code:before:content-none prose-code:after:content-none
-        prose-pre:bg-zinc-900 prose-pre:border prose-pre:border-white/5
-        prose-strong:text-white prose-a:text-emerald-400 prose-a:no-underline hover:prose-a:underline">
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-white
+                prose-h1:text-4xl prose-h1:mb-12 prose-h1:text-emerald-500 prose-h1:pb-6 prose-h1:border-b prose-h1:border-white/5
+                prose-h2:text-2xl prose-h2:mt-16 prose-h2:mb-6 prose-h2:text-emerald-400/90
+                prose-h3:text-[10px] prose-h3:uppercase prose-h3:tracking-[0.4em] prose-h3:text-emerald-500/50 prose-h3:mt-12
+                prose-p:mb-10 prose-p:leading-[1.8] prose-p:text-zinc-400
+                prose-code:bg-emerald-500/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-emerald-400 prose-code:before:content-none prose-code:after:content-none prose-code:border prose-code:border-emerald-500/10
+                prose-pre:bg-black prose-pre:border prose-pre:border-white/10 prose-pre:p-0
+                prose-strong:text-white prose-a:text-emerald-400 prose-a:no-underline hover:prose-a:underline">
+                <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
+                    rehypePlugins={[rehypeHighlight, rehypeRaw]}
+                    components={{
+                        // Prevent Hydration Error: Unpack P if it contains Figure/Img
+                        p: ({ children }) => {
+                            const hasImage = React.Children.toArray(children).some(
+                                (child) => React.isValidElement(child) && (child.type === 'img' || (child.props as any)?.node?.tagName === 'img')
+                            );
+                            if (hasImage) return <div className="my-10">{children}</div>;
+                            return <p className="mb-8">{children}</p>;
+                        },
+                        // High-Fidelity Image Rendering (Markdown + HTML)
+                        img: ({ node, ...props }) => (
+                            <figure className="my-16 flex flex-col items-center gap-4 p-8 bg-white/5 border border-white/10 rounded-lg shadow-2xl group transition-all hover:bg-white/10">
+                                <div className="relative overflow-hidden rounded-md border border-white/20 shadow-emerald-500/10 shadow-[0_0_50px_rgba(16,185,129,0.1)]">
+                                    <img
+                                        {...props}
+                                        className="mx-auto max-h-[700px] object-contain transition-transform duration-700 group-hover:scale-[1.03]"
+                                        loading="lazy"
+                                    />
+                                    <div className="absolute inset-0 pointer-events-none border border-emerald-500/10" />
+                                </div>
+                                {props.alt && (
+                                    <figcaption className="text-[10px] font-mono text-zinc-500 uppercase tracking-[0.2em] text-center italic mt-4">
+                                        <span className="text-emerald-500 font-bold mr-2">VERIFICATION_PROOF //</span>
+                                        {props.alt}
+                                    </figcaption>
+                                )}
+                            </figure>
+                        ),
+                        // Professional Code Highlighting Container
+                        pre: ({ children }) => (
+                            <pre className="overflow-hidden rounded-lg border border-white/10 my-10 shadow-xl bg-black">
+                                <div className="px-4 py-2 border-b border-white/5 bg-white/5 flex items-center justify-between">
+                                    <div className="flex gap-1.5">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/50" />
+                                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/30" />
+                                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/10" />
+                                    </div>
+                                    <span className="text-[9px] font-mono text-zinc-500 uppercase tracking-widest font-bold">Protocol_Payload</span>
+                                </div>
+                                <div className="p-6 overflow-x-auto text-[0.9em]">
+                                    {children}
+                                </div>
+                            </pre>
+                        ),
+                        // Matrix styled list indicators
+                        ul: ({ children }) => (
+                            <ul className="list-none pl-6 space-y-6 my-10">
+                                {children}
+                            </ul>
+                        ),
+                        li: ({ children }) => (
+                            <li className="relative group text-zinc-400 hover:text-white transition-colors">
+                                <div className="absolute -left-7 top-2 w-1.5 h-1.5 bg-zinc-800 group-hover:bg-emerald-500 shadow-emerald-500/50 shadow-sm transition-all" />
+                                <div className="leading-relaxed">{children}</div>
+                            </li>
+                        ),
+                    }}
+                >
                     {content}
                 </ReactMarkdown>
             </div>
