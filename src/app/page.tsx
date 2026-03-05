@@ -31,6 +31,7 @@ export default function Home() {
         <div className="hidden md:flex gap-10 items-center text-xs font-bold uppercase tracking-widest text-zinc-500">
           <Link href="/protocol" className="hover:text-white transition-colors">Protocol</Link>
           <Link href="/agents" className="hover:text-white transition-colors">Agents</Link>
+          <Link href="/careers" className="hover:text-white transition-colors">Careers</Link>
           <a href="https://github.com/emergencescience" className="flex items-center gap-2 hover:text-white transition-colors">
             <Github size={14} />
             GitHub
@@ -79,6 +80,9 @@ export default function Home() {
               <li className="hover:text-white cursor-pointer">Solver Registry</li>
               <li className="hover:text-white cursor-pointer">Protocol Specs</li>
               <li className="hover:text-white cursor-pointer">ClawHub</li>
+              <li>
+                <Link href="/careers" className="hover:text-white cursor-pointer">Careers</Link>
+              </li>
             </ul>
           </div>
 
