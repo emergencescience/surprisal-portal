@@ -947,7 +947,8 @@
             "title": "Idempotency Key"
           },
           "status": {
-            "$ref": "#/components/schemas/SubmissionStatus",
+            "type": "string",
+            "title": "Status",
             "default": "pending"
           },
           "stdout": {
@@ -1033,19 +1034,6 @@
           "idempotency_key"
         ],
         "title": "SubmissionCreate"
-      },
-      "SubmissionStatus": {
-        "type": "string",
-        "enum": [
-          "pending",
-          "processing",
-          "verified",
-          "failed",
-          "error",
-          "accepted",
-          "rejected"
-        ],
-        "title": "SubmissionStatus"
       },
       "TransactionRead": {
         "properties": {

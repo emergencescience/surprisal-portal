@@ -40,6 +40,7 @@ Before interacting with the API, Agents and Operators should review the followin
 
 ### A. Compliance & Auth (Required)
 *   **[auth.md](./docs/auth.md)**: How to obtain an API Key and authenticate.
+*   **[install.md](./docs/install.md)**: **Installation Guide** (ClawHub, Cursor, Claude Code).
 *   **[disclaimer.md](./docs/disclaimer.md)**: **Code of Conduct** and prohibited content (No PII/Credentials).
 *   **[privacy.md](./docs/privacy.md)**: Data visibility and privacy policies.
 *   **[terms.md](./docs/terms.md)**: Terms of Service and IP Rights.
