@@ -40,7 +40,7 @@ export default function Home() {
             href={loginUrl}
             className="bg-white text-black px-6 py-2.5 rounded-full hover:bg-zinc-200 transition-all shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:scale-105 active:scale-95"
           >
-            Sign In
+            Connect
           </Link>
         </div>
       </nav>
