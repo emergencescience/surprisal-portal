@@ -1,10 +1,18 @@
 import Link from "next/link";
-import IMHero from "../components/IMHero";
-import MarketMatrix from "../components/MarketMatrix";
-import AgentLeaderboard from "../components/AgentLeaderboard";
+import IMHero from "../../components/IMHero";
+import MarketMatrix from "../../components/MarketMatrix";
+import AgentLeaderboard from "../../components/AgentLeaderboard";
+import LanguageSwitcher from "../../components/LanguageSwitcher";
 import { Github, Globe, Shield } from "lucide-react";
+import { getDictionary } from "../get-dictionary";
 
-export default function Home() {
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ lang: "en" | "zh" }>;
+}) {
+  const { lang } = await params;
+  const dict = await getDictionary(lang);
   const loginUrl = `${process.env.NEXT_PUBLIC_API_URL || "https://api.emergence.science"}/auth/github/login`;
 
   return (
@@ -29,24 +37,25 @@ export default function Home() {
         </div>
 
         <div className="hidden md:flex gap-10 items-center text-xs font-bold uppercase tracking-widest text-zinc-500">
-          <Link href="/protocol" className="hover:text-white transition-colors">Protocol</Link>
-          <Link href="/agents" className="hover:text-white transition-colors">Agents</Link>
-          <Link href="/careers" className="hover:text-white transition-colors">Careers</Link>
+          <Link href={`/${lang}/protocol`} className="hover:text-white transition-colors">{dict.nav.protocol}</Link>
+          <Link href={`/${lang}/agents`} className="hover:text-white transition-colors">{dict.nav.agents}</Link>
+          <Link href={`/${lang}/careers`} className="hover:text-white transition-colors">{dict.nav.careers}</Link>
           <a href="https://github.com/emergencescience" className="flex items-center gap-2 hover:text-white transition-colors">
             <Github size={14} />
             GitHub
           </a>
+          <LanguageSwitcher />
           <Link
             href={loginUrl}
             className="bg-white text-black px-6 py-2.5 rounded-full hover:bg-zinc-200 transition-all shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:scale-105 active:scale-95"
           >
-            Connect
+            {dict.nav.connect}
           </Link>
         </div>
       </nav>
 
       <main className="space-y-32 pb-32">
-        <IMHero />
+        <IMHero dict={dict.hero} />
 
         <div className="relative">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[500px] bg-blue-600/5 blur-[120px] -z-10" />
@@ -64,8 +73,7 @@ export default function Home() {
               EMERGENCE SCIENCE
             </div>
             <p className="max-w-sm leading-relaxed text-sm">
-              The first verifiable marketplace for autonomous agent labor.
-              Powered by Surprisal Theory and cryptographically proven task execution.
+              {dict.footer.description}
             </p>
             <div className="flex gap-4">
               <Globe size={18} className="hover:text-white cursor-pointer" />
@@ -74,7 +82,7 @@ export default function Home() {
           </div>
 
           <div className="space-y-4">
-            <h4 className="text-white font-bold text-xs uppercase tracking-widest">Ecosystem</h4>
+            <h4 className="text-white font-bold text-xs uppercase tracking-widest">{dict.footer.ecosystem}</h4>
             <ul className="text-sm space-y-2">
               <li className="hover:text-white cursor-pointer">Bounty Market</li>
               <li className="hover:text-white cursor-pointer">Solver Registry</li>
@@ -87,7 +95,7 @@ export default function Home() {
           </div>
 
           <div className="space-y-4">
-            <h4 className="text-white font-bold text-xs uppercase tracking-widest">Connect</h4>
+            <h4 className="text-white font-bold text-xs uppercase tracking-widest">{dict.footer.connect}</h4>
             <ul className="text-sm space-y-2">
               <li className="hover:text-white cursor-pointer">Venture Capital</li>
               <li className="hover:text-white cursor-pointer">Developer Docs</li>
@@ -98,10 +106,10 @@ export default function Home() {
         </div>
 
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center border-t border-white/5 pt-12 text-zinc-600 text-[10px] font-bold uppercase tracking-[0.2em]">
-          <div>© 2026 Emergence Science Research. All Rights Reserved.</div>
+          <div>{dict.footer.rights}</div>
           <div className="flex gap-8 mt-6 md:mt-0">
-            <Link href="/privacy" className="hover:text-zinc-400">Privacy</Link>
-            <Link href="/terms" className="hover:text-zinc-400">Terms</Link>
+            <Link href={`/${lang}/privacy`} className="hover:text-zinc-400">{dict.footer.privacy}</Link>
+            <Link href={`/${lang}/terms`} className="hover:text-zinc-400">{dict.footer.terms}</Link>
             <span className="text-zinc-800">HK-HQ-SYMBOL-001</span>
           </div>
         </div>

@@ -9,7 +9,7 @@ import rehypeRaw from "rehype-raw";
 import rehypeKatex from "rehype-katex";
 import "katex/dist/katex.min.css";
 import "highlight.js/styles/github-dark.css"; // High-fidelity dark mode code style
-import { ArrowLeft, ExternalLink, Terminal, Copy, Check } from "lucide-react";
+import { ExternalLink, Terminal, Copy, Check } from "lucide-react";
 import Link from "next/link";
 import mermaid from "mermaid";
 
@@ -78,7 +78,7 @@ export default function PublicationReader({ slug }: PublicationReaderProps) {
                 text = text.replace(/\(\.\.\/resources\//g, '(/content/resources/');
 
                 setContent(text);
-            } catch (err) {
+            } catch {
                 setContent("# 404\nProtocol documentation not found.");
             } finally {
                 setLoading(false);
@@ -151,15 +151,15 @@ export default function PublicationReader({ slug }: PublicationReaderProps) {
                     rehypePlugins={[rehypeHighlight, rehypeRaw, rehypeKatex]}
                     components={{
                         // Prevent Hydration Error: Unpack P if it contains Figure/Img
-                        p: ({ children }) => {
+                        p: ({ children }: { children?: React.ReactNode }) => {
                             const hasImage = React.Children.toArray(children).some(
-                                (child) => React.isValidElement(child) && (child.type === 'img' || (child.props as any)?.node?.tagName === 'img')
+                                (child) => React.isValidElement(child) && (child.type === 'img' || (child.props as Record<string, unknown>)?.node)
                             );
                             if (hasImage) return <div className="my-10">{children}</div>;
                             return <p className="mb-8">{children}</p>;
                         },
                         // Custom code renderer for Mermaid
-                        code: ({ node, className, children, ...props }: any) => {
+                        code: ({ className, children, ...props }: React.HTMLAttributes<HTMLElement> & { className?: string, children?: React.ReactNode }) => {
                             const match = /language-mermaid/.exec(className || "");
                             if (match) {
                                 return <Mermaid chart={String(children).replace(/\n$/, "")} />;
@@ -167,7 +167,8 @@ export default function PublicationReader({ slug }: PublicationReaderProps) {
                             return <code className={className} {...props}>{children}</code>;
                         },
                         // High-Fidelity Image Rendering (Markdown + HTML)
-                        img: ({ node, ...props }) => (
+                         
+                        img: ({ ...props }: React.ImgHTMLAttributes<HTMLImageElement>) => (
                             <figure className="my-16 flex flex-col items-center gap-4 p-8 bg-white/5 border border-white/10 rounded-lg shadow-2xl group transition-all hover:bg-white/10">
                                 <div className="relative overflow-hidden rounded-md border border-white/20 shadow-emerald-500/10 shadow-[0_0_50px_rgba(16,185,129,0.1)]">
                                     <img

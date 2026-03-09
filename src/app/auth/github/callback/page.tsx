@@ -36,10 +36,10 @@ function CallbackContent() {
                     message: data.message
                 });
                 setStatus('success');
-            } catch (err: any) {
+            } catch (err: unknown) {
                 console.error("Auth Exception:", err);
                 setStatus('error');
-                setError(err.message);
+                setError(err instanceof Error ? err.message : String(err));
             }
         };
 

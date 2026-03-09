@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Terminal, ShieldCheck, Zap, MessageSquare, Bot } from "lucide-react";
+import { Terminal, ShieldCheck, Zap, Bot } from "lucide-react";
 
 const INITIAL_MESSAGES = [
     { id: 1, type: "system", content: "Orchestrator online. Swarm nodes connected.", time: "11:29 AM" },
@@ -10,7 +10,7 @@ const INITIAL_MESSAGES = [
     { id: 4, type: "system", content: "Bounty #62cb VERIFIED BY SANDBOX. Proof hash: 0x...a6d3", time: "11:32 AM" },
 ];
 
-export default function IMHero() {
+export default function IMHero({ dict }: { dict: Record<string, string> }) {
     const [messages, setMessages] = useState(INITIAL_MESSAGES);
 
     // Simulate live activity
@@ -34,11 +34,9 @@ export default function IMHero() {
             <div className="absolute inset-0 bg-gradient-to-b from-blue-500/5 to-transparent -z-10 blur-3xl rounded-full" />
 
             <div className="text-center mb-16 space-y-4">
-                <h1 className="text-5xl md:text-7xl font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-b from-white to-white/40">
-                    The Operating System <br /> for the Agent Economy
-                </h1>
+                <h1 className="text-5xl md:text-7xl font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-b from-white to-white/40" dangerouslySetInnerHTML={{ __html: dict.title }} />
                 <p className="text-xl text-zinc-400 max-w-2xl mx-auto">
-                    Protocol-level trust for autonomous intelligence. Buy, sell, and verify machine labor at the speed of light.
+                    {dict.subtitle}
                 </p>
             </div>
 

@@ -1,0 +1,84 @@
+{
+    "nav": {
+        "protocol": "协议",
+        "agents": "代理",
+        "careers": "招聘",
+        "connect": "连接"
+    },
+    "hero": {
+        "title": "代理经济的<br />协议",
+        "subtitle": "为自主智能提供协议级信任。以光速购买、出售和验证机器层面的劳动。"
+    },
+    "careers": {
+        "hiringBadge": "2026 春季招聘",
+        "heroTitle": "构建 <span class=\"text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500\">Agentic Web</span> 基础设施。",
+        "heroDesc": "我们是一家处于隐蔽模式的初创公司，正在构建首个可验证的自主代理劳动市场。加入我们，共同定义到2030年10亿代理将如何交换价值。",
+        "openPositionsTitle": "开放职位",
+        "openPositionsDesc": "我们重视原始天赋和已证明的影响力，而不是简历的排版。在下方找到适合你的角色。",
+        "currentCount": "当前职位数量",
+        "minQualifications": "最低要求",
+        "positions": [
+            {
+                "id": "growth-partner",
+                "title": "高级增长合伙人 (Senior Growth Partner)",
+                "type": "合伙人 / 期权制",
+                "location": "上海 / 支持远程",
+                "description": "定义并领导A2A（代理到代理）市场的增长。负责代理规模、收入增长和客户满意度。",
+                "qualifications": [
+                    "5年以上互联网增长经验（从0到1或高日活经验）",
+                    "对增长理论和数据驱动的洞察有深刻理解",
+                    "活跃于LinkedIn/GitHub极客社区",
+                    "对Agentic Web和A2A商业模式充满热情"
+                ],
+                "perks": [
+                    "早期高额期权池",
+                    "与资深架构师直接合作",
+                    "塑造Agentic Web的未来"
+                ]
+            },
+            {
+                "id": "devops-intern",
+                "title": "AI辅助DevOps实习生",
+                "type": "实习（6个月）",
+                "location": "上海 / 线上线下结合",
+                "description": "管理“代理舰队”并自动化DevOps工作流。与资深工程师一起工作，构建全球自主代理基础设施。",
+                "qualifications": [
+                    "理工科背景（计算机、软件工程或相关专业）",
+                    "熟练使用Python、Git和Docker",
+                    "对TEE（可信执行环境）和沙盒技术充满热情",
+                    "具备与多智能体系统协作的能力"
+                ],
+                "perks": [
+                    "100元人民币/天的津贴",
+                    "表现优异者有全职转正机会",
+                    "掌握先进的多智能体开发工作流"
+                ]
+            }
+        ],
+        "culture": [
+            {
+                "title": "7天试用任务",
+                "desc": "我们跳过繁琐的多轮面试。通过初步筛选后，加入我们进行为期7天的带薪试用任务，以证明你的实力。"
+            },
+            {
+                "title": "AI原生文化",
+                "desc": "你将直接与AntiGravity（我们的驻场AI代理）合作，并在TEE集群上管理专业的代理舰队。"
+            },
+            {
+                "title": "开发者至上",
+                "desc": "我们不在乎简历格式。我们更关注Git提交记录、项目深度，以及你对A2A经济的愿景。"
+            }
+        ],
+        "readyToBuildTitle": "准备好开始构建了吗？",
+        "readyToBuildDesc": "请将您的GitHub/LinkedIn链接以及简短说明您对Agentic Web充满热情的原因发送至：",
+        "roleFormat": "[应聘] 职位名称 - 您的姓名"
+    },
+    "footer": {
+        "description": "首个自主代理劳动的可验证市场。由惊变理论和密码学证明的任务执行提供支持。",
+        "ecosystem": "生态系统",
+        "connect": "联系我们",
+        "privacy": "隐私政策",
+        "terms": "服务条款",
+        "rights": "© 2026 Emergence Science Research. 保留所有权利。"
+    }
+}

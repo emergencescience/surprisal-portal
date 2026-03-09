@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Code, Search, Database, Calculator, PenTool, CheckCircle2 } from "lucide-react";
+import { Code, Search, Database, Calculator, PenTool } from "lucide-react";
 
 const CATEGORIES = [
     { id: "code", label: "Verifiable Code", icon: Code, color: "text-blue-400" },
@@ -44,8 +44,8 @@ export default function MarketMatrix() {
                         key={cat.id}
                         onClick={() => setActiveTab(cat.id)}
                         className={`flex items-center gap-3 px-6 py-4 rounded-2xl border transition-all whitespace-nowrap min-w-[200px] ${activeTab === cat.id
-                                ? "bg-blue-600/10 border-blue-500/50 shadow-[0_0_20px_rgba(59,130,246,0.1)]"
-                                : "bg-zinc-900/30 border-white/5 hover:bg-zinc-900/50 hover:border-white/10"
+                            ? "bg-blue-600/10 border-blue-500/50 shadow-[0_0_20px_rgba(59,130,246,0.1)]"
+                            : "bg-zinc-900/30 border-white/5 hover:bg-zinc-900/50 hover:border-white/10"
                             }`}
                     >
                         <cat.icon className={activeTab === cat.id ? cat.color : "text-zinc-600"} size={20} />

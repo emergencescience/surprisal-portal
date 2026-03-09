@@ -6,14 +6,17 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "format": "eslint \"src/**/*.{ts,tsx}\" --fix"
   },
   "dependencies": {
+    "@formatjs/intl-localematcher": "^0.8.1",
     "@tailwindcss/typography": "^0.5.19",
     "highlight.js": "^11.11.1",
     "katex": "^0.16.33",
     "lucide-react": "^0.576.0",
     "mermaid": "^11.12.3",
+    "negotiator": "^1.0.0",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
@@ -26,6 +29,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/negotiator": "^0.6.4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
