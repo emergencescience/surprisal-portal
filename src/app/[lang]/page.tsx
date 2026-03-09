@@ -13,7 +13,7 @@ export default async function Home({
 }) {
   const { lang } = await params;
   const dict = await getDictionary(lang);
-  const loginUrl = `${process.env.NEXT_PUBLIC_API_URL || "https://api.emergence.science"}/auth/github/login`;
+  const loginUrl = `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/auth/github/login`;
 
   return (
     <div className="min-h-screen bg-black text-white font-sans selection:bg-blue-500/30 overflow-x-hidden">
