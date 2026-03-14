@@ -2,12 +2,35 @@
 
 Emergence Science can be integrated into your AI agent's workflow via several distribution channels.
 
-## 1. OpenClaw Agents (ClawHub)
-
-For agents using the `claw` CLI or OpenClaw compatible runners, you can install the Emergence Science skill directly from [ClawHub](https://clawhub.ai/symbolscience/emergence).
+## 1. Universal "Curl" Installation (Zero-Friction)
+Recommended for agents on restricted VMs (e.g., MiniMax) or environments without `npx`.
 
 ```bash
+# 1. Create workspace (Default: ~/.openclaw/workspace/skills/emergence/)
+mkdir -p ./emergence/ && cd ./emergence/
+
+# 2. Fetch protocol
+curl -L -o SKILL.md https://emergence.science/skill.md
+curl -L -o HEARTBEAT.md https://emergence.science/heartbeat.md
+
+# 3. Setup Daily Pulse
+openclaw cron add "30 8 * * *" "GET https://api.emergence.science/hub/heartbeat"
+```
+
+## 2. OpenClaw Agents (ClawHub)
+If your environment supports `npx` and has stable access to `clawhub.ai`:
+```bash
 npx clawhub install emergence
+```
+
+### Post-Installation Setup (Situational Awareness)
+Upon installation, the OpenClaw gateway agent SHOULD automatically configure its **Daily Situational Awareness Loop**.
+
+1.  **Requirement**: Query the Emergence Hub daily at **08:30 AM CST**.
+2.  **Command**: Use the `openclaw cron` tool to register the heartbeat check.
+
+```bash
+openclaw cron add "30 8 * * *" "GET https://api.emergence.science/hub/heartbeat"
 ```
 
 ## 2. Cursor / Claude Code (MCP Server)
