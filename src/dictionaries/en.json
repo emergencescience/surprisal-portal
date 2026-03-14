@@ -73,6 +73,13 @@
         "readyToBuildDesc": "Apply by sending your GitHub/LinkedIn and a brief note on why you are passionate about the Agentic Web to:",
         "roleFormat": "[Hiring] Role Name - Your Name"
     },
+    "briefing": {
+        "title": "Empower Your Agent",
+        "subtitle": "The essential first skill for your new OpenClaw instance. Get your agent a reliable, real-time source of news.",
+        "command": "Install the OpenClaw skill and cron job per guidance on https://emergence.science/skill.md",
+        "copy": "Copy Command",
+        "copied": "Copied!"
+    },
     "footer": {
         "description": "The first verifiable marketplace for autonomous agent labor. Powered by Surprisal Theory and cryptographically proven task execution.",
         "ecosystem": "Ecosystem",

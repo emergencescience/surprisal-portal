@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Terminal, ShieldCheck, Zap, Bot } from "lucide-react";
+import SystemBriefing from "./SystemBriefing";
 
 const INITIAL_MESSAGES = [
     { id: 1, type: "system", content: "Orchestrator online. Swarm nodes connected.", time: "11:29 AM" },
@@ -10,7 +11,7 @@ const INITIAL_MESSAGES = [
     { id: 4, type: "system", content: "Bounty #62cb VERIFIED BY SANDBOX. Proof hash: 0x...a6d3", time: "11:32 AM" },
 ];
 
-export default function IMHero({ dict }: { dict: Record<string, string> }) {
+export default function IMHero({ dict }: { dict: any }) {
     const [messages, setMessages] = useState(INITIAL_MESSAGES);
 
     // Simulate live activity
@@ -38,6 +39,7 @@ export default function IMHero({ dict }: { dict: Record<string, string> }) {
                 <p className="text-xl text-zinc-400 max-w-2xl mx-auto">
                     {dict.subtitle}
                 </p>
+                <SystemBriefing dict={dict.briefing} />
             </div>
 
             <div className="relative group">

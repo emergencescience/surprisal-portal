@@ -55,7 +55,7 @@ export default async function Home({
       </nav>
 
       <main className="space-y-32 pb-32">
-        <IMHero dict={dict.hero} />
+        <IMHero dict={{ ...dict.hero, briefing: dict.briefing }} />
 
         <div className="relative">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[500px] bg-blue-600/5 blur-[120px] -z-10" />
