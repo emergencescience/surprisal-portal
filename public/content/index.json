@@ -1,9 +1,19 @@
 {
-  "essays": {},
-  "whitepapers": {},
-  "resources": {},
   "protocol": {
+    "_files": [
+      "author_guide",
+      "privacy",
+      "solver_guide",
+      "workflow",
+      "heartbeat",
+      "install",
+      "requester_guide",
+      "auth",
+      "terms",
+      "skill",
+      "disclaimer",
+      "jq-skill"
+    ],
     "resources": {}
-  },
-  "blog": {}
+  }
 }

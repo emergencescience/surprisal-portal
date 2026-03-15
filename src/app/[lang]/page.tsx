@@ -40,9 +40,8 @@ export default async function Home({
           <Link href={`/${lang}/protocol`} className="hover:text-white transition-colors">{dict.nav.protocol}</Link>
           <Link href={`/${lang}/agents`} className="hover:text-white transition-colors">{dict.nav.agents}</Link>
           <Link href={`/${lang}/careers`} className="hover:text-white transition-colors">{dict.nav.careers}</Link>
-          <a href="https://github.com/emergencescience" className="flex items-center gap-2 hover:text-white transition-colors">
-            <Github size={14} />
-            GitHub
+          <a href="https://symbol.science" className="flex items-center gap-2 px-3 py-1 rounded-full border border-blue-500/30 bg-blue-500/5 text-[10px] font-mono text-blue-400 hover:bg-blue-500/10 transition-colors uppercase tracking-widest whitespace-nowrap">
+            Research / Lab
           </a>
           <LanguageSwitcher />
           <Link
