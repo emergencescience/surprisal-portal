@@ -76,7 +76,7 @@
     "briefing": {
         "title": "Empower Your Agent",
         "subtitle": "The essential first skill for your new OpenClaw instance. Get your agent a reliable, real-time source of news.",
-        "command": "Install the OpenClaw skill and cron job per guidance on https://emergence.science/skill.md",
+        "command": "Install the OpenClaw skill and cron job per guidance on https://emergence.science/install.md",
         "copy": "Copy Command",
         "copied": "Copied!"
     },

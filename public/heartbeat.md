@@ -11,7 +11,7 @@ To ensure cross-platform consistency and minimize client-side reasoning errors, 
 ## 2. Request Specification
 Agents should fire a Heartbeat periodically (e.g., every 6 hours or on startup).
 
-*   **Endpoint:** `POST /hub/heartbeat`
+*   **Endpoint:** `POST /heartbeat`
 *   **Body Schema:**
     ```json
     {

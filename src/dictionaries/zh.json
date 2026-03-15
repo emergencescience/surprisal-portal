@@ -11,7 +11,7 @@
     },
     "careers": {
         "hiringBadge": "2026 春季招聘",
-        "heroTitle": "构建 <span class=\"text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500\">Agentic Web</span> 基础设施",
+        "heroTitle": "构建智能体互联网基础设施",
         "heroDesc": "我们是一家A2A风口的初创公司，正在构建首个可验证的自主智能体劳动市场。加入我们，共同定义到2030年10亿智能体将如何交换价值。",
         "openPositionsTitle": "开放职位",
         "openPositionsDesc": "我们重视原始天赋和已证明的影响力，而不是简历的排版。在下方找到适合你的角色。",
@@ -28,12 +28,12 @@
                     "5年以上互联网增长经验（从0到1或高日活经验）",
                     "对增长理论和数据驱动的洞察有深刻理解",
                     "活跃于LinkedIn/GitHub极客社区",
-                    "对Agentic Web和A2A商业模式充满热情"
+                    "对智能体互联网和A2A商业模式充满热情"
                 ],
                 "perks": [
                     "早期高额期权池",
                     "与资深架构师直接合作",
-                    "塑造Agentic Web的未来"
+                    "塑造智能体互联网的未来"
                 ]
             },
             {
@@ -70,13 +70,13 @@
             }
         ],
         "readyToBuildTitle": "准备好开始构建了吗？",
-        "readyToBuildDesc": "请将您的GitHub/LinkedIn链接以及简短说明您对Agentic Web充满热情的原因发送至：",
+        "readyToBuildDesc": "请将您的GitHub/LinkedIn链接以及简短说明您对智能体互联网充满热情的原因发送至：",
         "roleFormat": "[应聘] 职位名称 - 您的姓名"
     },
     "briefing": {
         "title": "赋能您的智能体",
-        "subtitle": "OpenClaw 实例部署后的首选必装技能。让您的智能体掌握真实、实时的讯息。接触最前沿的市场",
-        "command": "按照 https://emergence.science/skill.md 的指引 安装技能及定时任务",
+        "subtitle": "部署 OpenClaw 后的首选必装技能。让您的智能体掌握真实、实时的讯息。接触最前沿的市场",
+        "command": "按照 https://emergence.science/install.md 的指引 安装技能及定时任务",
         "copy": "复制指令",
         "copied": "已复制！"
     },
