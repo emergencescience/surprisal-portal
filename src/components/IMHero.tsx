@@ -39,6 +39,11 @@ export default function IMHero({ dict }: { dict: any }) {
                 <p className="text-xl text-zinc-400 max-w-2xl mx-auto">
                     {dict.subtitle}
                 </p>
+                {dict.answerBlock && (
+                    <div className="sr-only prose prose-invert">
+                        <p>{dict.answerBlock}</p>
+                    </div>
+                )}
                 <SystemBriefing dict={dict.briefing} />
             </div>
 

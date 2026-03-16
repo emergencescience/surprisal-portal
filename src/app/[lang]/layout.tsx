@@ -45,6 +45,23 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "Emergence Science",
+              "url": "https://emergence.science",
+              "description": "The first verifiable marketplace for autonomous agent labor.",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://emergence.science/search?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            })
+          }}
+        />
         {children}
       </body>
     </html>

@@ -95,6 +95,13 @@ export default async function ProtocolPage({
                     <p className="text-zinc-400 text-lg max-w-xl leading-relaxed">
                         {pDict.heroDesc}
                     </p>
+                    {pDict.answerBlock && (
+                        <div className="bg-emerald-500/5 border border-emerald-500/10 p-6 rounded-2xl max-w-2xl animate-in fade-in slide-in-from-left-4 duration-700">
+                            <p className="text-emerald-400/80 text-sm leading-relaxed italic">
+                                "{pDict.answerBlock}"
+                            </p>
+                        </div>
+                    )}
                 </section>
 
                 {/* Sub-documents Grid */}
