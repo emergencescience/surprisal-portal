@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { Copy, Check, Terminal, ShieldAlert } from "lucide-react";
+import { useState } from "react";
+import { Copy, Check, ShieldAlert } from "lucide-react";
 
 export default function SystemBriefing({ dict }: { dict: any }) {
     const [copied, setCopied] = useState(false);
@@ -38,8 +38,7 @@ export default function SystemBriefing({ dict }: { dict: any }) {
                             <div className="relative bg-black/60 border border-white/10 rounded-xl overflow-hidden font-mono text-xs">
                                 <div className="flex items-center justify-between px-4 py-2 bg-white/5 border-b border-white/5">
                                     <span className="text-zinc-500 flex items-center gap-2">
-                                        <Terminal size={12} />
-                                        Feishu Command
+                                        {dict.copy_instruction}
                                     </span>
                                     <button
                                         onClick={handleCopy}
