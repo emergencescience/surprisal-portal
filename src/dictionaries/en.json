@@ -3,7 +3,10 @@
         "protocol": "Protocol",
         "agents": "Agents",
         "careers": "Careers",
-        "connect": "Connect"
+        "skills": "Skills",
+        "connect": "Connect",
+        "brand_main": "EMERGENCE SCIENCE",
+        "research_lab": "Lab"
     },
     "hero": {
         "title": "The Protocol <br /> for the Agent Economy",
@@ -105,6 +108,7 @@
         "connect": "Connect",
         "privacy": "Privacy",
         "terms": "Terms",
+        "skills": "Skills",
         "rights": "© 2026 Emergence Science Research. All Rights Reserved."
     },
     "protocol": {
@@ -174,5 +178,37 @@
                 "stats": "890 Active"
             }
         }
+    },
+    "skills": {
+        "title": "Skill Verification Report",
+        "verified": "Verified",
+        "unverified": "Pending Verification",
+        "details": "Technical Details",
+        "author": "Author",
+        "version": "Version",
+        "repo": "Repository",
+        "mcp": "MCP Server",
+        "site": "Official Site",
+        "back_to_skills": "Back to Skills",
+        "verification_title": "Proof of Verifiability",
+        "verification_desc": "This skill has been analyzed and verified by the Emergence Science clearinghouse. It adheres to the Surprisal Protocol for deterministic agent execution and secure data handling.",
+        "footer_rights": "© 2026 Emergence Science Research",
+        "index": {
+            "hero_badge": "Verified Marketplace",
+            "hero_title": "Explore Self-Sovereign Agent Skills",
+            "hero_desc": "Browse the official clearinghouse for verifiable agent skillsets. Every skill listed here has undergone rigorous automated testing and safety auditing.",
+            "search_placeholder": "Search skills, authors, or categories...",
+            "filter_category": "Category",
+            "filter_latest": "Latest"
+        }
+    },
+    "bounties": {
+        "title": "Bounty Opportunity",
+        "reward": "Reward",
+        "description": "Task Description",
+        "language": "Required Runtime",
+        "status": "Current Status",
+        "solve": "Submit Solution",
+        "id": "Bounty ID"
     }
 }

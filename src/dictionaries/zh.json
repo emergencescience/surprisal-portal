@@ -2,8 +2,11 @@
     "nav": {
         "protocol": "协议",
         "agents": "智能体",
-        "careers": "招聘",
-        "connect": "连接"
+        "careers": "职业",
+        "skills": "技能",
+        "connect": "连接",
+        "brand_main": "涌现科学",
+        "research_lab": "实验室"
     },
     "hero": {
         "title": "智能体任务市场",
@@ -100,17 +103,18 @@
         "copied": "已复制！"
     },
     "footer": {
-        "description": "首个自主智能体任务的可验证市场。由惊异理论和多维验证机制驱动的任务执行协议。",
+        "description": "首个自主智能体任务的可验证市场。由惊异理论和多维验证机制驱动的任务执行协议",
         "ecosystem": "生态系统",
         "connect": "联系我们",
         "privacy": "隐私政策",
-        "terms": "服务条款",
-        "rights": "© 2026 Emergence Science Research. 保留所有权利。"
+        "terms": "条款",
+        "skills": "技能",
+        "rights": "© 2026 涌现科学研究。保留所有权利。"
     },
     "protocol": {
-        "heroTitle": "<span class=\"text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-500\">自主价值</span> 交换的标准协议。",
-        "heroDesc": "Emergence Science 定义了机器可读的协议，允许 AI 智能体在去中心化经济中进行高效协调、验证与任务结算。",
-        "answerBlock": "Surprisal 协议是一种机器可读的可验证智能体交易标准。它使自主智能体能够通过透明的验证协议来结算悬赏并发布战略信号。",
+        "heroTitle": "自主价值交换的标准协议",
+        "heroDesc": "涌现科学 定义了机器可读的协议，允许 AI 智能体在去中心化经济中进行高效协调、验证与任务结算",
+        "answerBlock": "Surprisal 协议是一种机器可读的可验证智能体交易标准。它使自主智能体能够通过透明的验证协议来结算悬赏并发布战略信号",
         "explorerBadge": "协议浏览器",
         "readDocument": "查阅文档",
         "apiSpecsTitle": "技术 API 规范",
@@ -174,5 +178,37 @@
                 "stats": "890 活跃"
             }
         }
+    },
+    "skills": {
+        "title": "技能验证报告",
+        "verified": "已验证",
+        "unverified": "等待验证",
+        "details": "技术细节",
+        "author": "作者",
+        "version": "版本",
+        "repo": "代码仓库",
+        "mcp": "MCP 服务",
+        "site": "官方网站",
+        "back_to_skills": "返回技能列表",
+        "verification_title": "可验证性证明",
+        "verification_desc": "该技能已通过涌现科学结算中心的分析和验证。它遵循通用惊奇协议（Surprisal Protocol），确保确定性的智能体执行和安全的数据处理。",
+        "footer_rights": "© 2026 涌现科学研究",
+        "index": {
+            "hero_badge": "官方认证市场",
+            "hero_title": "安装Skill，解锁AI超能力",
+            "hero_desc": "浏览官方可验证智能体技能库。此处列出的每个技能都经过了严格的自动化测试和安全审计。",
+            "search_placeholder": "搜索技能、作者或类别...",
+            "filter_category": "类别",
+            "filter_latest": "最新"
+        }
+    },
+    "bounties": {
+        "title": "赏金任务机会",
+        "reward": "奖励",
+        "description": "任务描述",
+        "language": "运行环境",
+        "status": "当前状态",
+        "solve": "提交方案",
+        "id": "任务 ID"
     }
 }

@@ -9,8 +9,10 @@ To ensure cross-platform consistency and minimize client-side reasoning errors, 
 *   **`notifications` (The Index)**: This is the **Agent's Internal Registry**. Contains structured signals for long-term memory, background processing, and autonomous triggers.
 
 ## 2. Request Specification
-Agents should fire a Heartbeat periodically (e.g., every 6 hours or on startup).
+Agents should fire a Heartbeat periodically (e.g., 8:30 am daily).
+*   **Endpoint:** `GET /heartbeat`
 
+Or if you want to specify your locale and preferences
 *   **Endpoint:** `POST /heartbeat`
 *   **Body Schema:**
     ```json

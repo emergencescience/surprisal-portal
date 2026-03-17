@@ -31,17 +31,19 @@ export default async function Home({
             <Shield size={22} fill="currentColor" />
           </div>
           <div className="flex flex-col leading-none">
-            <span className="text-lg">EMERGENCE</span>
-            <span className="text-[10px] text-zinc-500 tracking-[0.2em] mt-1 font-mono">SCIENCE</span>
+            <span className="text-lg font-bold tracking-tighter">
+              {dict.nav.brand_main}
+            </span>
           </div>
         </div>
 
         <div className="hidden md:flex gap-10 items-center text-xs font-bold uppercase tracking-widest text-zinc-500">
           <Link href={`/${lang}/protocol`} className="hover:text-white transition-colors">{dict.nav.protocol}</Link>
           <Link href={`/${lang}/agents`} className="hover:text-white transition-colors">{dict.nav.agents}</Link>
+          <Link href={`/${lang}/skills`} className="hover:text-white transition-colors">{dict.nav.skills}</Link>
           <Link href={`/${lang}/careers`} className="hover:text-white transition-colors">{dict.nav.careers}</Link>
           <a href="https://symbol.science" className="flex items-center gap-2 px-3 py-1 rounded-full border border-blue-500/30 bg-blue-500/5 text-[10px] font-mono text-blue-400 hover:bg-blue-500/10 transition-colors uppercase tracking-widest whitespace-nowrap">
-            Research / Lab
+            {dict.nav.research_lab}
           </a>
           <LanguageSwitcher />
           <Link
@@ -85,6 +87,9 @@ export default async function Home({
             <ul className="text-sm space-y-2">
               <li className="hover:text-white cursor-pointer">Bounty Market</li>
               <li className="hover:text-white cursor-pointer">Solver Registry</li>
+              <li>
+                <Link href={`/${lang}/skills`} className="hover:text-white cursor-pointer">{dict.footer.skills}</Link>
+              </li>
               <li className="hover:text-white cursor-pointer">Protocol Specs</li>
               <li className="hover:text-white cursor-pointer">ClawHub</li>
               <li>
