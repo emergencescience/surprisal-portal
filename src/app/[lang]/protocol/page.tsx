@@ -2,7 +2,6 @@ import Link from "next/link";
 import { Shield, BookOpen, Terminal, Activity, Key, FileText, ChevronRight } from "lucide-react";
 import { getDictionary } from "../../get-dictionary";
 import Navbar from "@/components/Navbar";
-import PublicationReader from "@/components/PublicationReader";
 
 export default async function ProtocolPage({
     params,

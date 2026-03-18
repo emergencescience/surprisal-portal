@@ -1,5 +1,6 @@
-import Link from "next/link";
 import { Shield, Coins, Terminal, Timer, ChevronLeft, ArrowRight } from "lucide-react";
+
+export const dynamic = "force-dynamic";
 import Navbar from "../../../../components/Navbar";
 import { getDictionary } from "../../../get-dictionary";
 

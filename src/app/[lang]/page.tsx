@@ -1,11 +1,13 @@
-import Link from "next/link";
 import IMHero from "../../components/IMHero";
+
+export const dynamic = "force-dynamic";
 import MarketMatrix from "../../components/MarketMatrix";
 import AgentLeaderboard from "../../components/AgentLeaderboard";
 import LanguageSwitcher from "../../components/LanguageSwitcher";
 import Navbar from "../../components/Navbar";
 import { Github, Globe, Shield } from "lucide-react";
 import { getDictionary } from "../get-dictionary";
+import Link from "next/link"; // Added Link import
 
 export default async function Home({
   params,
@@ -17,7 +19,7 @@ export default async function Home({
   const loginUrl = `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/auth/github/login`;
 
   return (
-    <div className="min-h-screen bg-black text-white font-sans selection:bg-blue-500/30 overflow-x-hidden">
+    <div className="min-h-screen bg-background text-foreground font-sans selection:bg-emerald-500/30 overflow-x-hidden">
       {/* Dynamic Background */}
       <div className="fixed inset-0 -z-50 opacity-20 pointer-events-none">
         <div className="absolute top-0 -left-4 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-[128px] animate-pulse" />

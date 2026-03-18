@@ -3,6 +3,8 @@ import { getDictionary } from "../../get-dictionary";
 import Navbar from "@/components/Navbar";
 import { Calendar, User, ArrowRight, Newspaper } from "lucide-react";
 
+export const dynamic = "force-dynamic";
+
 export default async function ArticlesPage({
     params,
 }: {
@@ -15,9 +17,7 @@ export default async function ArticlesPage({
     const query = new URLSearchParams({
         locale: lang === 'en' ? 'en-US' : 'zh-CN'
     });
-    const response = await fetch(`${apiUrl}/articles?${query.toString()}`, {
-        next: { revalidate: 60 } // Revalidate every minute
-    });
+    const response = await fetch(`${apiUrl}/articles?${query.toString()}`);
 
     const articles = response.ok ? await response.json() : [];
 

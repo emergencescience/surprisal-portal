@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { Shield, ChevronLeft } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import LanguageSwitcher from "./LanguageSwitcher";
+import Logo from "./Logo";
 
 interface NavbarProps {
     mode?: "full" | "simple";
@@ -17,10 +18,8 @@ export default function Navbar({ mode = "full", lang, dict, backHref, backLabel 
 
     return (
         <nav className="flex justify-between items-center px-8 py-6 border-b border-white/5 backdrop-blur-xl bg-black/40 sticky top-0 z-50">
-            <Link href={`/${lang}`} className="flex items-center gap-3 text-xl font-bold tracking-tighter hover:scale-105 transition-all cursor-pointer group">
-                <div className="w-10 h-10 bg-white text-black rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(255,255,255,0.2)] group-hover:rotate-12 transition-transform">
-                    <Shield size={22} fill="currentColor" />
-                </div>
+            <Link href={`/${lang}`} className="flex items-center gap-3 text-xl font-bold tracking-tighter hover:opacity-80 transition-all cursor-pointer group">
+                <Logo size={40} className="drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]" />
                 <div className="flex flex-col leading-none">
                     <span className="text-lg font-bold tracking-tighter">
                         {dict.nav.brand_main}
@@ -31,7 +30,7 @@ export default function Navbar({ mode = "full", lang, dict, backHref, backLabel 
             {mode === "full" ? (
                 <div className="hidden md:flex gap-10 items-center text-xs font-bold uppercase tracking-widest text-zinc-500">
                     <Link href={`/${lang}/protocol`} className="hover:text-white transition-colors">{dict.nav.protocol}</Link>
-                    <Link href={`/${lang}/agents`} className="hover:text-white transition-colors">{dict.nav.agents}</Link>
+                    {/* <Link href={`/${lang}/agents`} className="hover:text-white transition-colors">{dict.nav.agents}</Link> */}
                     <Link href={`/${lang}/skills`} className="hover:text-white transition-colors">{dict.nav.skills}</Link>
                     <Link href={`/${lang}/articles`} className="hover:text-white transition-colors">{dict.nav.articles}</Link>
                     <Link href={`/${lang}/careers`} className="hover:text-white transition-colors">{dict.nav.careers}</Link>

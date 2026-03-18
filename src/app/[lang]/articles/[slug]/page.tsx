@@ -4,6 +4,42 @@ import { Calendar, User, Terminal, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { markdownToHtml } from "@/lib/markdown";
 import "highlight.js/styles/github-dark.css";
+import { Metadata } from "next";
+
+export const dynamic = "force-dynamic";
+
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ lang: "en" | "zh", slug: string }>;
+}): Promise<Metadata> {
+    const { lang, slug } = await params;
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+    
+    try {
+        const response = await fetch(`${apiUrl}/articles/${slug}`);
+        if (!response.ok) return { title: "Article Not Found" };
+        const article = await response.json();
+        
+        return {
+            title: `${article.title} | Emergence Science`,
+            description: article.content.substring(0, 160).replace(/[#*`]/g, ''),
+            openGraph: {
+                title: article.title,
+                description: article.content.substring(0, 160).replace(/[#*`]/g, ''),
+                type: "article",
+                publishedTime: article.created_at,
+                locale: lang === 'en' ? 'en_US' : 'zh_CN',
+                url: `https://emergence.science/${lang}/articles/${slug}`,
+            },
+            alternates: {
+                canonical: `https://emergence.science/${lang}/articles/${slug}`,
+            }
+        };
+    } catch (e) {
+        return { title: "Emergence Science" };
+    }
+}
 
 export default async function ArticleDetailPage({
     params,
@@ -33,8 +69,33 @@ export default async function ArticleDetailPage({
     const article = await response.json();
     const contentHtml = await markdownToHtml(article.content);
 
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": article.title,
+        "datePublished": article.created_at,
+        "author": {
+            "@type": "Organization",
+            "name": "Emergence Science Research",
+            "url": "https://emergence.science"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Emergence Science",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://emergence.science/favicon.ico"
+            }
+        },
+        "description": article.content.substring(0, 160).replace(/[#*`]/g, '')
+    };
+
     return (
-        <div className="min-h-screen bg-black text-zinc-300 font-sans selection:bg-blue-500/30 overflow-x-hidden">
+        <div className="min-h-screen bg-background text-foreground font-sans selection:bg-blue-500/30 overflow-x-hidden">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
             <Navbar lang={lang} dict={dict} mode="full" />
 
             <article className="max-w-4xl mx-auto py-20 px-8">

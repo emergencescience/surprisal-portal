@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { Shield, Search, Filter, ArrowRight, ExternalLink } from "lucide-react";
+
+export const dynamic = "force-dynamic";
 import Navbar from "@/components/Navbar";
 import { getDictionary } from "../../get-dictionary";
 
