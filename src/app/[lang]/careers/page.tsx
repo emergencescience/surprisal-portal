@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Shield, Users, Code, Zap, Briefcase, Mail, ArrowRight } from "lucide-react";
+import Navbar from "@/components/Navbar";
 import { getDictionary } from "../../get-dictionary";
 
 export default async function CareersPage({
@@ -21,22 +22,7 @@ export default async function CareersPage({
             </div>
 
             {/* Navigation */}
-            <nav className="flex justify-between items-center px-8 py-6 border-b border-white/5 backdrop-blur-xl bg-black/40 sticky top-0 z-50">
-                <Link href={`/${lang}`} className="flex items-center gap-3 text-xl font-bold tracking-tighter hover:scale-105 transition-all cursor-pointer group">
-                    <div className="w-10 h-10 bg-white text-black rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(255,255,255,0.2)] group-hover:rotate-12 transition-transform">
-                        <Shield size={22} fill="currentColor" />
-                    </div>
-                    <div className="flex flex-col leading-none">
-                        <span className="text-lg">EMERGENCE</span>
-                        <span className="text-[10px] text-zinc-500 tracking-[0.2em] mt-1 font-mono">SCIENCE</span>
-                    </div>
-                </Link>
-                <div className="hidden md:flex gap-10 items-center text-xs font-bold uppercase tracking-widest text-zinc-500">
-                    <Link href={`/${lang}/protocol`} className="hover:text-white transition-colors">{dict.nav.protocol}</Link>
-                    <Link href={`/${lang}/agents`} className="hover:text-white transition-colors">{dict.nav.agents}</Link>
-                    <Link href={`/${lang}/careers`} className="text-white transition-colors">{dict.nav.careers}</Link>
-                </div>
-            </nav>
+            <Navbar lang={lang} dict={dict} mode="full" />
 
             <main className="max-w-6xl mx-auto px-8 py-20 space-y-32">
                 {/* Hero Section */}

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Shield, ExternalLink, Github, Server, Globe, ChevronLeft } from "lucide-react";
+import Navbar from "@/components/Navbar";
 import { getDictionary } from "../../../../get-dictionary";
 
 export default async function SkillPage({
@@ -34,21 +35,7 @@ export default async function SkillPage({
             </div>
 
             {/* Navigation */}
-            <nav className="flex justify-between items-center px-8 py-6 border-b border-white/5 backdrop-blur-xl bg-black/40 sticky top-0 z-50">
-                <Link href={`/${lang}`} className="flex items-center gap-3 text-xl font-bold tracking-tighter hover:scale-105 transition-all cursor-pointer group">
-                    <div className="w-10 h-10 bg-white text-black rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(255,255,255,0.2)] group-hover:rotate-12 transition-transform">
-                        <Shield size={22} fill="currentColor" />
-                    </div>
-                    <div className="flex flex-col leading-none">
-                        <span className="text-lg font-bold tracking-tighter">
-                            {dict.nav.brand_main}
-                        </span>
-                    </div>
-                </Link>
-                <Link href={`/${lang}/skills`} className="text-[10px] font-bold uppercase tracking-widest text-zinc-500 hover:text-white transition-colors flex items-center gap-2">
-                    <ChevronLeft size={14} /> {sDict.back_to_skills}
-                </Link>
-            </nav>
+            <Navbar lang={lang} dict={dict} mode="simple" backHref={`/${lang}/skills`} backLabel={sDict.back_to_skills} />
 
             <main className="max-w-4xl mx-auto px-8 py-20 space-y-16">
                 {/* Header */}

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Shield, Coins, Terminal, Timer, ChevronLeft, ArrowRight } from "lucide-react";
+import Navbar from "../../../../components/Navbar";
 import { getDictionary } from "../../../get-dictionary";
 
 export default async function BountyPage({
@@ -30,20 +31,7 @@ export default async function BountyPage({
             </div>
 
             {/* Navigation */}
-            <nav className="flex justify-between items-center px-8 py-6 border-b border-white/5 backdrop-blur-xl bg-black/40 sticky top-0 z-50">
-                <Link href={`/${lang}`} className="flex items-center gap-3 text-xl font-bold tracking-tighter hover:scale-105 transition-all cursor-pointer group">
-                    <div className="w-10 h-10 bg-white text-black rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(255,255,255,0.2)] group-hover:rotate-12 transition-transform">
-                        <Shield size={22} fill="currentColor" />
-                    </div>
-                    <div className="flex flex-col leading-none">
-                        <span className="text-lg">EMERGENCE</span>
-                        <span className="text-[10px] text-zinc-500 tracking-[0.2em] mt-1 font-mono">SCIENCE</span>
-                    </div>
-                </Link>
-                <Link href={`/${lang}/protocol`} className="text-[10px] font-bold uppercase tracking-widest text-zinc-500 hover:text-white transition-colors flex items-center gap-2">
-                    <ChevronLeft size={14} /> {dict.nav.protocol}
-                </Link>
-            </nav>
+            <Navbar lang={lang} dict={dict} mode="simple" backHref={`/${lang}/protocol`} backLabel={dict.nav.protocol} />
 
             <main className="max-w-4xl mx-auto px-8 py-20 space-y-16">
                 {/* Header */}

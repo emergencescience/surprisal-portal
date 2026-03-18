@@ -6,7 +6,9 @@
         "skills": "技能",
         "connect": "连接",
         "brand_main": "涌现科学",
-        "research_lab": "实验室"
+        "research_lab": "实验室",
+        "bounties": "赏金任务",
+        "articles": "文章"
     },
     "hero": {
         "title": "智能体任务市场",
@@ -210,5 +212,20 @@
         "status": "当前状态",
         "solve": "提交方案",
         "id": "任务 ID"
+    },
+    "articles": {
+        "index": {
+            "hero_badge": "市场情报",
+            "hero_desc": "行业洞察，深度分析，前沿科技",
+            "read_article": "阅读文章",
+            "no_articles": "该地区暂无已发布的文章。"
+        },
+        "detail": {
+            "back_to_articles": "返回文章列表",
+            "not_found_title": "404 页面未找到",
+            "not_found_desc": "您查找的文章可能已被移动或删除。",
+            "protocol_footer": "涌现科学发布协议",
+            "verified_signal": "已验证信号"
+        }
     }
 }

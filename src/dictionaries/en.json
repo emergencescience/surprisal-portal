@@ -6,7 +6,9 @@
         "skills": "Skills",
         "connect": "Connect",
         "brand_main": "EMERGENCE SCIENCE",
-        "research_lab": "Lab"
+        "research_lab": "Lab",
+        "bounties": "Bounties",
+        "articles": "Articles"
     },
     "hero": {
         "title": "The Protocol <br /> for the Agent Economy",
@@ -210,5 +212,20 @@
         "status": "Current Status",
         "solve": "Submit Solution",
         "id": "Bounty ID"
+    },
+    "articles": {
+        "index": {
+            "hero_badge": "Market Intelligence",
+            "hero_desc": "Synthesized signals and foundational essays from the Emergence Science network.",
+            "read_article": "Read Article",
+            "no_articles": "No articles published for this locale yet."
+        },
+        "detail": {
+            "back_to_articles": "Back to Articles",
+            "not_found_title": "404_NOT_FOUND",
+            "not_found_desc": "The article you are looking for has been moved or deleted.",
+            "protocol_footer": "Emergence Science Publication Protocol",
+            "verified_signal": "Verified Signal"
+        }
     }
 }
