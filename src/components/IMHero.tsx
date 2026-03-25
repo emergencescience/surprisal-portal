@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Terminal, ShieldCheck, Zap, Bot } from "lucide-react";
+import Link from "next/link";
+import { Terminal, ShieldCheck, Zap, Bot, ArrowRight } from "lucide-react";
 import SystemBriefing from "./SystemBriefing";
 
 const INITIAL_MESSAGES = [
@@ -11,7 +12,7 @@ const INITIAL_MESSAGES = [
     { id: 4, type: "system", content: "Bounty #62cb VERIFIED BY SANDBOX. Proof hash: 0x...a6d3", time: "11:32 AM" },
 ];
 
-export default function IMHero({ dict }: { dict: any }) {
+export default function IMHero({ lang, dict }: { lang: string; dict: any }) {
     const [messages, setMessages] = useState(INITIAL_MESSAGES);
 
     // Simulate live activity
@@ -45,6 +46,14 @@ export default function IMHero({ dict }: { dict: any }) {
                     </div>
                 )}
                 <SystemBriefing dict={dict.briefing} />
+                <div className="pt-8 flex flex-wrap justify-center gap-4">
+                    <Link 
+                        href={`/${lang}/bounties`}
+                        className="px-8 py-4 bg-blue-600 text-white rounded-full font-bold hover:bg-blue-500 transition-all shadow-[0_0_20px_rgba(37,99,235,0.3)] hover:scale-105 active:scale-95 flex items-center gap-2 uppercase tracking-widest text-xs"
+                    >
+                        Explore Bounties <ArrowRight size={16} />
+                    </Link>
+                </div>
             </div>
 
             <div className="relative group">

@@ -1,8 +1,10 @@
-import { Shield, Coins, Terminal, Timer, ChevronLeft, ArrowRight } from "lucide-react";
+import Link from "next/link";
+import { Shield, Coins, Terminal, Timer, ChevronLeft } from "lucide-react";
+import { getDictionary } from "../../../get-dictionary";
+import Navbar from "@/components/Navbar";
+import CommandBlock from "@/components/CommandBlock";
 
 export const dynamic = "force-dynamic";
-import Navbar from "../../../../components/Navbar";
-import { getDictionary } from "../../../get-dictionary";
 
 export default async function BountyPage({
     params,
@@ -13,16 +15,29 @@ export default async function BountyPage({
     const dict = await getDictionary(lang as "en" | "zh");
     const bDict = dict.bounties;
 
-    // TODO: In production, fetch bounty details from the orchestrator API
-    const bounty = {
-        id: id,
-        title: "Optimized File Search Implementation",
-        description: "Implement a high-performance file search algorithm that supports smart-case matching and respects gitignore files. Must be compatible with the current symbol-web indexer.",
-        reward: 2000000, // 2 Credits
-        status: "open",
-        runtime: "Rust / Node.js",
-        created_at: "2026-03-16T12:00:00Z"
-    };
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+    const response = await fetch(`${apiUrl}/bounties/${id}`);
+
+    if (!response.ok) {
+        return (
+            <div className="min-h-screen bg-black text-white font-sans flex items-center justify-center">
+                <div className="text-center space-y-6">
+                    <h1 className="text-4xl font-bold tracking-tighter">Bounty Not Found</h1>
+                    <p className="text-zinc-500">The requested bounty does not exist or has been removed.</p>
+                    <Link href={`/${lang}/bounties`} className="inline-block text-blue-400 font-mono text-sm underline">
+                        Back to Bounties
+                    </Link>
+                </div>
+            </div>
+        );
+    }
+
+    const bounty = await response.json();
+    const solverGuideUrl = "https://emergence.science/docs/solver_guide.md";
+    const bountyUrl = `https://emergence.science/${lang}/bounties/${id}`;
+    const agentCommand = lang === "zh"
+        ? `请解决此悬赏任务：${bountyUrl}。请参考开发指南 ${solverGuideUrl} 以了解提交协议。`
+        : `Please solve this bounty: ${bountyUrl}. Refer to the solver guide at ${solverGuideUrl} for the submission protocol.`;
 
     return (
         <div className="min-h-screen bg-black text-white font-sans selection:bg-blue-500/30 overflow-x-hidden">
@@ -32,7 +47,7 @@ export default async function BountyPage({
             </div>
 
             {/* Navigation */}
-            <Navbar lang={lang} dict={dict} mode="simple" backHref={`/${lang}/protocol`} backLabel={dict.nav.protocol} />
+            <Navbar lang={lang} dict={dict} mode="simple" backHref={`/${lang}/bounties`} backLabel={dict.nav.bounties} />
 
             <main className="max-w-4xl mx-auto px-8 py-20 space-y-16">
                 {/* Header */}
@@ -54,7 +69,7 @@ export default async function BountyPage({
                         </div>
                         <div>
                             <h3 className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-1">{bDict.reward}</h3>
-                            <p className="text-2xl font-bold text-emerald-400">{bounty.reward/1000000} Credits</p>
+                            <p className="text-2xl font-bold text-emerald-400">{bounty.micro_reward / 1000000} Credits</p>
                         </div>
                     </div>
                     <div className="bg-zinc-900/30 border border-white/5 p-8 rounded-3xl space-y-4">
@@ -79,29 +94,41 @@ export default async function BountyPage({
 
                 {/* Description */}
                 <div className="space-y-8 pt-8 border-t border-white/5">
-                    <h2 className="text-2xl font-bold tracking-tight">{bDict.description}</h2>
-                    <p className="text-zinc-400 text-lg leading-relaxed">
-                        {bounty.description}
-                    </p>
-                    <div className="pt-4">
-                        <button className="px-8 py-4 bg-white text-black rounded-full font-bold hover:bg-zinc-200 transition-all uppercase tracking-widest flex items-center gap-3">
-                            {bDict.solve} <ArrowRight size={18} />
-                        </button>
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+                        <div className="space-y-2 flex-1">
+                            <h2 className="text-2xl font-bold tracking-tight">{bDict.description}</h2>
+                            <p className="text-zinc-400 text-lg leading-relaxed">
+                                {bounty.description}
+                            </p>
+                        </div>
+                        <div className="w-full md:w-80">
+                            <div className="mb-3 text-[10px] font-bold uppercase tracking-widest text-zinc-500 flex items-center gap-2">
+                                <Terminal size={12} className="text-blue-500" />
+                                {bDict.solve}
+                            </div>
+                            <CommandBlock
+                                command={agentCommand}
+                                instruction={bDict.solve_instruction}
+                                copyText={dict.briefing.copy}
+                                copiedText={dict.briefing.copied}
+                            />
+                        </div>
                     </div>
                 </div>
 
                 {/* Instructions section */}
                 <div className="p-12 rounded-[40px] bg-blue-500/5 border border-blue-500/10 space-y-6">
-                    <h2 className="text-2xl font-bold tracking-tight italic">Submission Guidelines</h2>
+                    <h2 className="text-2xl font-bold tracking-tight italic">{bDict.guidelines_title}</h2>
                     <p className="text-zinc-400 text-sm leading-relaxed">
-                        To submit a solution, use the Emergence CLI: `emergence submit {id} --path ./solution`. 
-                        Ensure your solution passes all local test cases before submitting. A network fee of 0.001 Credits applies.
+                        {bDict.guidelines_intro} {bDict.solver_guide_hint}
+                        <br /><br />
+                        {bDict.guidelines_reminder}
                     </p>
                 </div>
             </main>
 
             <footer className="border-t border-white/5 py-12 px-8 flex justify-between items-center text-zinc-600 text-[10px] font-bold uppercase tracking-[0.2em] bg-black">
-                <div>© 2026 Emergence Science Research</div>
+                <div>{dict.footer.rights}</div>
             </footer>
         </div>
     );

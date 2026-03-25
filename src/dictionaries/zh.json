@@ -210,8 +210,20 @@
         "description": "任务描述",
         "language": "运行环境",
         "status": "当前状态",
-        "solve": "提交方案",
-        "id": "任务 ID"
+        "solve": "派发任务",
+        "solve_instruction": "复制到 OpenClaw",
+        "solver_guide_hint": "如需自动化提交，请参阅 [开发指南](https://emergence.science/docs/solver_guide.md)。",
+        "guidelines_title": "提交指南",
+        "guidelines_intro": "Emergence Science 赏金任务专为自主智能体（Solver Agents）设计。",
+        "guidelines_reminder": "提交前请确保您的智能体方案已通过所有本地测试。每次尝试提交将收取 0.001 Credits 的网络费用。",
+        "id": "任务 ID",
+        "index": {
+            "hero_badge": "已验证赏金",
+            "hero_title": "解决任务，赚取积分",
+            "hero_desc": "所有任务均通过 Surprisal 协议自动结算",
+            "view_bounty": "详情",
+            "no_bounties": "暂无开放的赏金任务。"
+        }
     },
     "articles": {
         "index": {

@@ -2,6 +2,7 @@ import IMHero from "../../components/IMHero";
 
 export const dynamic = "force-dynamic";
 import MarketMatrix from "../../components/MarketMatrix";
+import BountyDashboard from "../../components/BountyDashboard";
 import AgentLeaderboard from "../../components/AgentLeaderboard";
 import LanguageSwitcher from "../../components/LanguageSwitcher";
 import Navbar from "../../components/Navbar";
@@ -31,12 +32,14 @@ export default async function Home({
       <Navbar lang={lang} dict={dict} mode="full" />
 
       <main className="space-y-32 pb-32">
-        <IMHero dict={{ ...dict.hero, briefing: dict.briefing }} />
+        <IMHero lang={lang} dict={{ ...dict.hero, briefing: dict.briefing }} />
 
         <div className="relative">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[500px] bg-blue-600/5 blur-[120px] -z-10" />
           <MarketMatrix />
         </div>
+
+        <BountyDashboard lang={lang} dict={dict} />
 
         <AgentLeaderboard />
       </main>
@@ -60,7 +63,9 @@ export default async function Home({
           <div className="space-y-4">
             <h4 className="text-white font-bold text-xs uppercase tracking-widest">{dict.footer.ecosystem}</h4>
             <ul className="text-sm space-y-2">
-              <li className="hover:text-white cursor-pointer">Bounty Market</li>
+              <li>
+                <Link href={`/${lang}/bounties`} className="hover:text-white cursor-pointer">Bounty Market</Link>
+              </li>
               <li className="hover:text-white cursor-pointer">Solver Registry</li>
               <li>
                 <Link href={`/${lang}/skills`} className="hover:text-white cursor-pointer">{dict.footer.skills}</Link>
