@@ -46,6 +46,7 @@ export default async function ArticlesPage({
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {articles.length > 0 ? (
+                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
                         articles.map((article: any) => (
                             <Link 
                                 key={article.id} 

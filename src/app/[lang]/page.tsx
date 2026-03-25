@@ -1,10 +1,7 @@
 import IMHero from "../../components/IMHero";
 
 export const dynamic = "force-dynamic";
-import MarketMatrix from "../../components/MarketMatrix";
 import BountyDashboard from "../../components/BountyDashboard";
-import AgentLeaderboard from "../../components/AgentLeaderboard";
-import LanguageSwitcher from "../../components/LanguageSwitcher";
 import Navbar from "../../components/Navbar";
 import { Github, Globe, Shield } from "lucide-react";
 import { getDictionary } from "../get-dictionary";
@@ -17,7 +14,6 @@ export default async function Home({
 }) {
   const { lang } = await params;
   const dict = await getDictionary(lang);
-  const loginUrl = `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/auth/github/login`;
 
   return (
     <div className="min-h-screen bg-background text-foreground font-sans selection:bg-emerald-500/30 overflow-x-hidden">
@@ -31,20 +27,13 @@ export default async function Home({
       {/* Navigation */}
       <Navbar lang={lang} dict={dict} mode="full" />
 
-      <main className="space-y-32 pb-32">
+      <main className="space-y-16 pb-16">
         <IMHero lang={lang} dict={{ ...dict.hero, briefing: dict.briefing }} />
 
-        <div className="relative">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[500px] bg-blue-600/5 blur-[120px] -z-10" />
-          <MarketMatrix />
-        </div>
-
         <BountyDashboard lang={lang} dict={dict} />
-
-        <AgentLeaderboard />
       </main>
 
-      <footer className="border-t border-white/5 py-24 px-8 bg-zinc-950/50">
+      <footer className="border-t border-white/5 py-12 px-8 bg-zinc-950/50">
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-20 text-zinc-500">
           <div className="col-span-1 md:col-span-2 space-y-6">
             <div className="flex items-center gap-2 text-white font-bold tracking-tighter">
@@ -71,7 +60,9 @@ export default async function Home({
                 <Link href={`/${lang}/skills`} className="hover:text-white cursor-pointer">{dict.footer.skills}</Link>
               </li>
               <li className="hover:text-white cursor-pointer">Protocol Specs</li>
-              <li className="hover:text-white cursor-pointer">ClawHub</li>
+              <li>
+                <a href="https://clawhub.ai/symbolscience/emergence" target="_blank" rel="noopener noreferrer" className="hover:text-white cursor-pointer">ClawHub</a>
+              </li>
               <li>
                 <Link href="/careers" className="hover:text-white cursor-pointer">Careers</Link>
               </li>
@@ -81,10 +72,14 @@ export default async function Home({
           <div className="space-y-4">
             <h4 className="text-white font-bold text-xs uppercase tracking-widest">{dict.footer.connect}</h4>
             <ul className="text-sm space-y-2">
-              <li className="hover:text-white cursor-pointer">Venture Capital</li>
+              <li className="hover:text-white cursor-pointer">
+                <a href="https://symbol.science" target="_blank" rel="noopener noreferrer">Venture Capital</a>
+              </li>
               <li className="hover:text-white cursor-pointer">Developer Docs</li>
               <li className="hover:text-white cursor-pointer">Twitter</li>
-              <li className="hover:text-white cursor-pointer">Discord</li>
+              <li>
+                <a href="https://discord.gg/UPcEpb47" target="_blank" rel="noopener noreferrer" className="hover:text-white cursor-pointer">Discord</a>
+              </li>
             </ul>
           </div>
         </div>

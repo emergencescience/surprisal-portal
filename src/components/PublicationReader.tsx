@@ -1,6 +1,6 @@
 import React from "react";
 import "highlight.js/styles/github-dark.css"; 
-import { Terminal, Copy, Check } from "lucide-react";
+import { Terminal } from "lucide-react";
 import Link from "next/link";
 import { promises as fs } from "fs";
 import path from "path";
@@ -36,7 +36,7 @@ export default async function PublicationReader({ slug }: PublicationReaderProps
         markdown = markdown.replace(/\(\.\.\/resources\//g, '(/content/resources/');
 
         contentHtml = await markdownToHtml(markdown);
-    } catch (err) {
+    } catch {
         contentHtml = "<h1>404</h1><p>Protocol documentation not found.</p>";
     }
 

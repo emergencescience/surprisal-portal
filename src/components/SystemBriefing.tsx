@@ -1,7 +1,8 @@
 import { ShieldAlert } from "lucide-react";
 import CommandBlock from "./CommandBlock";
 
-export default function SystemBriefing({ dict }: { dict: any }) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function SystemBriefing({ dict }: { dict: Record<string, any> }) {
     return (
         <section className="w-full max-w-4xl mx-auto pt-12 px-8">
             <div className="relative group">
@@ -23,7 +24,7 @@ export default function SystemBriefing({ dict }: { dict: any }) {
                         </div>
 
                         {/* Interactive Command Block */}
-                        <CommandBlock 
+                        <CommandBlock
                             command={dict.command}
                             instruction={dict.copy_instruction}
                             copyText={dict.copy}

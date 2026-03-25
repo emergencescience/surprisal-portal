@@ -4,7 +4,9 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { Timer, Coins, Terminal, ArrowRight, Shield } from "lucide-react";
 
-export default function BountyDashboard({ lang, dict }: { lang: string; dict: any }) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function BountyDashboard({ lang, dict }: { lang: string; dict: Record<string, any> }) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [bounties, setBounties] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -14,7 +16,8 @@ export default function BountyDashboard({ lang, dict }: { lang: string; dict: an
             try {
                 const response = await fetch(`${apiUrl}/bounties?status=open&limit=3`);
                 if (response.ok) {
-                    const data = await response.json();
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    const data: any[] = await response.json();
                     setBounties(data);
                 }
             } catch (error) {
@@ -49,8 +52,8 @@ export default function BountyDashboard({ lang, dict }: { lang: string; dict: an
                         {bDict.index.hero_title}
                     </h2>
                 </div>
-                <Link 
-                    href={`/${lang}/bounties`} 
+                <Link
+                    href={`/${lang}/bounties`}
                     className="text-xs font-bold uppercase tracking-widest text-zinc-500 hover:text-white transition-colors flex items-center gap-2 group"
                 >
                     View All Bounties <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
@@ -59,8 +62,8 @@ export default function BountyDashboard({ lang, dict }: { lang: string; dict: an
 
             <div className="grid md:grid-cols-3 gap-6 text-left">
                 {bounties.map((bounty) => (
-                    <Link 
-                        key={bounty.id} 
+                    <Link
+                        key={bounty.id}
                         href={`/${lang}/bounties/${bounty.id}`}
                         className="group flex flex-col p-8 rounded-[32px] bg-zinc-900/30 border border-white/5 hover:border-blue-500/30 transition-all hover:scale-[1.02]"
                     >
@@ -80,7 +83,7 @@ export default function BountyDashboard({ lang, dict }: { lang: string; dict: an
                         </h3>
                         <div className="mt-auto flex items-center gap-2 text-emerald-400 font-mono text-sm font-bold">
                             <Coins size={14} />
-                            {bounty.reward / 1000000} Credits
+                            {bounty.micro_reward / 1000000} Credits
                         </div>
                     </Link>
                 ))}

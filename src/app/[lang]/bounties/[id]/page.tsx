@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { Shield, Coins, Terminal, Timer, ChevronLeft } from "lucide-react";
+import { Shield, Coins, Terminal, Timer } from "lucide-react";
 import { getDictionary } from "../../../get-dictionary";
 import Navbar from "@/components/Navbar";
 import CommandBlock from "@/components/CommandBlock";
+import { markdownToHtml } from "@/lib/markdown";
 
 export const dynamic = "force-dynamic";
 
@@ -10,6 +11,7 @@ export default async function BountyPage({
     params,
 }: {
     params: Promise<{ lang: string; id: string }>;
+// ... existing params logic ...
 }) {
     const { lang, id } = await params;
     const dict = await getDictionary(lang as "en" | "zh");
@@ -33,6 +35,7 @@ export default async function BountyPage({
     }
 
     const bounty = await response.json();
+    const descriptionHtml = await markdownToHtml(bounty.description || "");
     const solverGuideUrl = "https://emergence.science/docs/solver_guide.md";
     const bountyUrl = `https://emergence.science/${lang}/bounties/${id}`;
     const agentCommand = lang === "zh"
@@ -92,16 +95,31 @@ export default async function BountyPage({
                     </div>
                 </div>
 
-                {/* Description */}
-                <div className="space-y-8 pt-8 border-t border-white/5">
-                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
-                        <div className="space-y-2 flex-1">
+                {/* Description and Solution Template */}
+                <div className="space-y-12 pt-8 border-t border-white/5">
+                    <div className="flex flex-col md:flex-row justify-between items-start gap-12">
+                        <div className="space-y-6 flex-1 max-w-2xl">
                             <h2 className="text-2xl font-bold tracking-tight">{bDict.description}</h2>
-                            <p className="text-zinc-400 text-lg leading-relaxed">
-                                {bounty.description}
-                            </p>
+                            <div 
+                                className="prose prose-invert prose-sm md:prose-base max-w-none text-zinc-400 leading-relaxed"
+                                dangerouslySetInnerHTML={{ __html: descriptionHtml }}
+                            />
+
+                            {bounty.solution_template && (
+                                <div className="space-y-4 pt-8">
+                                    <h3 className="text-lg font-bold tracking-tight flex items-center gap-2">
+                                        <Terminal size={18} className="text-blue-500" />
+                                        Solution Template
+                                    </h3>
+                                    <div className="relative group">
+                                        <pre className="p-6 rounded-2xl bg-zinc-900/50 border border-white/5 text-xs font-mono text-zinc-300 overflow-x-auto">
+                                            <code>{bounty.solution_template}</code>
+                                        </pre>
+                                    </div>
+                                </div>
+                            )}
                         </div>
-                        <div className="w-full md:w-80">
+                        <div className="w-full md:w-80 sticky top-24">
                             <div className="mb-3 text-[10px] font-bold uppercase tracking-widest text-zinc-500 flex items-center gap-2">
                                 <Terminal size={12} className="text-blue-500" />
                                 {bDict.solve}

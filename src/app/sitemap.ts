@@ -18,7 +18,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   );
 
   // Dynamic articles
-  let articleEntries: MetadataRoute.Sitemap = [];
+  const articleEntries: MetadataRoute.Sitemap = [];
   try {
     // Fetch articles for both locales
     const responses = await Promise.all(
@@ -29,6 +29,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         if (responses[i].ok) {
             const articles = await responses[i].json();
             const lang = locales[i];
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             articles.forEach((article: any) => {
                 articleEntries.push({
                     url: `${baseUrl}/${lang}/articles/${article.slug}`,

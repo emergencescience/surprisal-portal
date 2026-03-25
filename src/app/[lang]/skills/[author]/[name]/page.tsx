@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { Shield, ExternalLink, Github, Server, Globe, ChevronLeft } from "lucide-react";
+import { Shield, ExternalLink, Github, Server, Globe } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import { getDictionary } from "../../../../get-dictionary";
 

@@ -1,6 +1,6 @@
 import { getDictionary } from "../../../get-dictionary";
 import Navbar from "@/components/Navbar";
-import { Calendar, User, Terminal, ArrowLeft } from "lucide-react";
+import { Calendar, User, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { markdownToHtml } from "@/lib/markdown";
 import "highlight.js/styles/github-dark.css";
@@ -36,7 +36,7 @@ export async function generateMetadata({
                 canonical: `https://emergence.science/${lang}/articles/${slug}`,
             }
         };
-    } catch (e) {
+    } catch {
         return { title: "Emergence Science" };
     }
 }

@@ -44,6 +44,7 @@ export default async function BountiesPage({
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {bounties.length > 0 ? (
+                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
                         bounties.map((bounty: any) => (
                             <Link
                                 key={bounty.id}
