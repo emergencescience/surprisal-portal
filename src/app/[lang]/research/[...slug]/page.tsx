@@ -7,12 +7,12 @@ export default async function Page({
 }: {
     params: Promise<{ slug: string[]; lang: string }>;
 }) {
-    const { slug } = await params;
+    const { slug, lang } = await params;
     const path = slug.join("/");
 
     return (
         <div className="min-h-screen bg-black">
-            <PublicationReader slug={path} />
+            <PublicationReader slug={path} lang={lang} base="archive" />
         </div>
     );
 }

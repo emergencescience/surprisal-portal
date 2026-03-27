@@ -8,18 +8,36 @@ import { markdownToHtml } from "@/lib/markdown";
 
 interface PublicationReaderProps {
     slug: string;
+    base?: string;
 }
 
 /**
  * Server Component to render Publications
  * Zero Client-Side JS for Content Rendering
  */
-export default async function PublicationReader({ slug }: PublicationReaderProps) {
+export default async function PublicationReader({ slug, lang = "en", base = "protocol" }: PublicationReaderProps & { lang?: string, base?: string }) {
     let contentHtml = "";
     
     try {
-        const filePath = path.join(process.cwd(), "public", "content", "protocol", `${slug}.md`);
-        let markdown = await fs.readFile(filePath, "utf-8");
+        let markdown = "";
+        const baseDir = path.join(process.cwd(), "public", "content", base);
+        
+        // Priority 1: lang/slug.md
+        const langPath = path.join(baseDir, lang, `${slug}.md`);
+        // Priority 2: en/slug.md (fallback)
+        const enPath = path.join(baseDir, "en", `${slug}.md`);
+        // Priority 3: slug.md (backward compatibility for flat structure)
+        const flatPath = path.join(baseDir, `${slug}.md`);
+
+        try {
+            markdown = await fs.readFile(langPath, "utf-8");
+        } catch {
+            try {
+                markdown = await fs.readFile(enPath, "utf-8");
+            } catch {
+                markdown = await fs.readFile(flatPath, "utf-8");
+            }
+        }
 
         // Rewrite relative image paths relative to the folder the slug is in
         const slugParts = slug.split('/');

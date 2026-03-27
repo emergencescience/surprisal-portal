@@ -12,7 +12,7 @@ export default function BountyDashboard({ lang, dict }: { lang: string; dict: Re
 
     useEffect(() => {
         const fetchBounties = async () => {
-            const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+            const apiUrl = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000").replace(/\/$/, "");
             try {
                 const response = await fetch(`${apiUrl}/bounties?status=open&limit=3`);
                 if (response.ok) {
