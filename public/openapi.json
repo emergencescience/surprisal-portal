@@ -1685,6 +1685,18 @@
             "type": "string",
             "title": "Locale",
             "default": "zh-CN"
+          },
+          "signal_metadata": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Signal Metadata"
           }
         },
         "type": "object",
