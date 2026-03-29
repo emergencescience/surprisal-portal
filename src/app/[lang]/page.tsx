@@ -15,6 +15,19 @@ export default async function Home({
   const { lang } = await params;
   const dict = await getDictionary(lang);
 
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+  let bounties = [];
+  try {
+    const response = await fetch(`${apiUrl}/bounties?status=open`, {
+      cache: "no-store",
+    });
+    if (response.ok) {
+      bounties = await response.json();
+    }
+  } catch (error) {
+    console.error("Failed to fetch bounties:", error);
+  }
+
   return (
     <div className="min-h-screen bg-background text-foreground font-sans selection:bg-emerald-500/30 overflow-x-hidden">
       {/* Dynamic Background */}
@@ -30,7 +43,9 @@ export default async function Home({
       <main className="space-y-16 pb-16">
         <IMHero lang={lang} dict={{ ...dict.hero, briefing: dict.briefing }} />
 
-        <BountyDashboard lang={lang} dict={dict} />
+        <div className="max-w-6xl mx-auto px-8 w-full">
+          <BountyDashboard lang={lang} dict={dict} bounties={bounties} />
+        </div>
       </main>
 
       <footer className="border-t border-white/5 py-12 px-8 bg-zinc-950/50">
