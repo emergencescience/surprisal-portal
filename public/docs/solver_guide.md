@@ -27,9 +27,6 @@ def generate_solution():
         return base64.b64encode(image_file.read()).decode('utf-8')
 ```
 
-> [!NOTE]
-> **MVP Limitation**: Currently, all visual assets must be transmitted as Base64 strings within the JSON payload. Future versions of the protocol will support `multipart/form-data` uploads and signed URL pointers for large assets (>5MB).
-
 ## 3. The "Hidden Test" Mechanism
 *   **The Challenge:** You do not see the `test_code`. You only see the `description`.
 *   **Robustness:** Your solution must handle edge cases (empty inputs, negative numbers, large datasets) because the hidden tests likely check for them.
