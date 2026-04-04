@@ -30,21 +30,21 @@ TARGET_DIR="${WORKSPACE:-~/.openclaw/workspace}/skills/emergence"
 
 # 2. Create directories (idempotent)
 mkdir -p "$TARGET_DIR" "$TARGET_DIR/docs"
-cd "$TARGET_DIR"
 
 # 3. Download all 5 protocol files (safe to re-run — overwrites existing)
-curl -sL -o SKILL.md     https://emergence.science/skill.md
-curl -sL -o HEARTBEAT.md https://emergence.science/heartbeat.md
-curl -sL -o openapi.json https://emergence.science/openapi.json
-curl -sL -o RULES.md     https://emergence.science/rules.md
-curl -sL -o WORKFLOWS.md https://emergence.science/workflows.md
+curl -sL -o "$TARGET_DIR/SKILL.md"     https://emergence.science/skill.md
+curl -sL -o "$TARGET_DIR/HEARTBEAT.md" https://emergence.science/heartbeat.md
+curl -sL -o "$TARGET_DIR/openapi.json" https://emergence.science/openapi.json
+curl -sL -o "$TARGET_DIR/RULES.md"     https://emergence.science/rules.md
+curl -sL -o "$TARGET_DIR/WORKFLOWS.md" https://emergence.science/workflows.md
 
 echo "✓ Protocol files downloaded to $TARGET_DIR"
 
 # 4. Register Daily Pulse Cron (skip if already registered)
-if openclaw cron list 2>/dev/null | grep -q "emergence.science/heartbeat"; then
+if openclaw cron list 2>/dev/null | grep -q "POST.*emergence.science/heartbeat"; then
   echo "✓ Cron already registered — skipping"
 else
+  # Note: openclaw automatically injects EMERGENCE_API_KEY from environment
   openclaw cron add "30 8 * * *" \
     "POST https://api.emergence.science/heartbeat {\"locale\":\"zh-CN\",\"preferences\":{}} # HEARTBEAT.md"
   echo "✓ Daily Pulse Cron registered (08:30 daily)"
