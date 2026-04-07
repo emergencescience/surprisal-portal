@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Shield, Cpu, Zap, Network, Bot, Users, ArrowRight } from "lucide-react";
 import { getDictionary } from "../../get-dictionary";
+import Navbar from "@/components/Navbar";
 
 export default async function AgentsPage({
     params,
@@ -35,6 +36,30 @@ export default async function AgentsPage({
         }
     ];
 
+    const tiers = [
+        {
+            name: aDict.matrix.tier1.name,
+            desc: aDict.matrix.tier1.desc,
+            color: "text-blue-400",
+            bg: "bg-blue-400/5",
+            border: "border-blue-400/20"
+        },
+        {
+            name: aDict.matrix.tier2.name,
+            desc: aDict.matrix.tier2.desc,
+            color: "text-emerald-400",
+            bg: "bg-emerald-400/5",
+            border: "border-emerald-400/20"
+        },
+        {
+            name: aDict.matrix.tier3.name,
+            desc: aDict.matrix.tier3.desc,
+            color: "text-zinc-500",
+            bg: "bg-zinc-500/5",
+            border: "border-zinc-500/20"
+        }
+    ];
+
     return (
         <div className="min-h-screen bg-black text-white font-sans selection:bg-blue-500/30 overflow-x-hidden">
             {/* Dynamic Background */}
@@ -43,26 +68,7 @@ export default async function AgentsPage({
                 <div className="absolute bottom-1/4 -left-20 w-96 h-96 bg-indigo-600 rounded-full mix-blend-screen filter blur-[128px] animate-pulse delay-700" />
             </div>
 
-            {/* Navigation */}
-            <nav className="flex justify-between items-center px-8 py-6 border-b border-white/5 backdrop-blur-xl bg-black/40 sticky top-0 z-50">
-                <Link href={`/${lang}`} className="flex items-center gap-3 text-xl font-bold tracking-tighter hover:scale-105 transition-all cursor-pointer group">
-                    <div className="w-10 h-10 bg-white text-black rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(255,255,255,0.2)] group-hover:rotate-12 transition-transform">
-                        <Shield size={22} fill="currentColor" />
-                    </div>
-                    <div className="flex flex-col leading-none">
-                        <span className="text-lg">EMERGENCE</span>
-                        <span className="text-[10px] text-zinc-500 tracking-[0.2em] mt-1 font-mono">SCIENCE</span>
-                    </div>
-                </Link>
-                <div className="hidden md:flex gap-10 items-center text-xs font-bold uppercase tracking-widest text-zinc-500">
-                    <Link href={`/${lang}/protocol`} className="hover:text-white transition-colors">{dict.nav.protocol}</Link>
-                    <Link href={`/${lang}/agents`} className="text-white transition-colors">{dict.nav.agents}</Link>
-                    <Link href={`/${lang}/careers`} className="hover:text-white transition-colors">{dict.nav.careers}</Link>
-                    <a href="https://symbol.science" className="flex items-center gap-2 px-3 py-1 rounded-full border border-indigo-500/30 bg-indigo-500/5 text-[10px] font-mono text-indigo-400 hover:bg-indigo-500/10 transition-colors uppercase tracking-widest">
-                        Research / Lab
-                    </a>
-                </div>
-            </nav>
+            <Navbar lang={lang} dict={dict} mode="full" />
 
             <main className="max-w-6xl mx-auto px-8 py-24 space-y-32">
                 {/* Hero Section */}
@@ -96,6 +102,23 @@ export default async function AgentsPage({
                             </div>
                         </div>
                     ))}
+                </section>
+
+                {/* Agent Matrix / Tier System */}
+                <section className="space-y-12">
+                    <div className="text-center space-y-4">
+                        <h2 className="text-3xl md:text-4xl font-bold tracking-tight">The Trust Matrix</h2>
+                        <p className="text-zinc-500 max-w-xl mx-auto">Verified identity and proof of execution across three tiers of agent autonomy.</p>
+                    </div>
+                    <div className="grid md:grid-cols-3 gap-6">
+                        {tiers.map((tier, i) => (
+                            <div key={i} className={`p-8 rounded-3xl border ${tier.border} ${tier.bg} space-y-4`}>
+                                <div className={`text-[10px] font-mono font-bold uppercase tracking-widest ${tier.color}`}>Tier {i+1}</div>
+                                <h4 className="text-xl font-bold">{tier.name}</h4>
+                                <p className="text-sm text-zinc-500 leading-relaxed">{tier.desc}</p>
+                            </div>
+                        ))}
+                    </div>
                 </section>
 
                 {/* CTA Section */}

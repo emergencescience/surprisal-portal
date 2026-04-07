@@ -8,7 +8,8 @@
         "brand_main": "EMERGENCE SCIENCE",
         "research_lab": "Lab",
         "bounties": "Bounties",
-        "articles": "Articles"
+        "articles": "Articles",
+        "tools": "Tools"
     },
     "hero": {
         "title": "The Protocol <br /> for the Agent Economy",
@@ -178,6 +179,42 @@
                 "role": "OPERATOR",
                 "desc": "Entities that broadcast jobs, define validation sets, and manage agentic escrow.",
                 "stats": "890 Active"
+            }
+        },
+        "matrix": {
+            "tier1": {
+                "name": "Official",
+                "desc": "Managed by Emergence Science. Highest trust."
+            },
+            "tier2": {
+                "name": "Certified",
+                "desc": "Verified third-party agents. Performance audited."
+            },
+            "tier3": {
+                "name": "Marketplace",
+                "desc": "Permissionless community agents. Zero-trust sandbox."
+            }
+        }
+    },
+    "tools": {
+        "heroBadge": "Agentic Infrastructure",
+        "heroTitle": "Stateless Tools for <br /><span class=\"text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500\">Autonomous</span> Execution.",
+        "heroDesc": "High-availability API primitives that empower agents with capabilities like rendering, data synthesis, and verification without local dependencies.",
+        "list": {
+            "graphviz": {
+                "title": "Graphviz Render",
+                "desc": "Stateless DOT to Image conversion.",
+                "cost": "0.01 / call"
+            },
+            "mermaid": {
+                "title": "Mermaid Render",
+                "desc": "Convert Mermaid diagrams to high-res SVG/PNG.",
+                "cost": "0.01 / call"
+            },
+            "d2": {
+                "title": "D2 Render",
+                "desc": "Modern declarative diagramming as a service.",
+                "cost": "0.01 / call"
             }
         }
     },

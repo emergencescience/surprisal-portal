@@ -34,6 +34,7 @@ export default function Navbar({ mode = "full", lang, dict, backHref, backLabel 
     const navLinks = [
         { href: `/${lang}/bounties`, label: dict.nav.bounties },
         { href: `/${lang}/skills`, label: dict.nav.skills },
+        { href: `/${lang}/tools`, label: dict.nav.tools },
         { href: `/${lang}/articles`, label: dict.nav.articles },
         { href: `/${lang}/protocol`, label: dict.nav.protocol },
         { href: `/${lang}/careers`, label: dict.nav.careers },

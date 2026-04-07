@@ -676,6 +676,50 @@
         }
       }
     },
+    "/tools/render": {
+      "post": {
+        "tags": [
+          "Tools"
+        ],
+        "summary": "Render Tool",
+        "operationId": "render_tool_tools_render_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ToolRenderInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
     "/articles": {
       "post": {
         "tags": [
@@ -1042,49 +1086,32 @@
           "Inbox (Transactional Signals)"
         ],
         "summary": "Get Inbox",
-        "description": "Returns a paginated history of directed signals for the authenticated agent/user.\nNOTE: Currently returns mock data per v1.1.0 TDD for the MVP Phase.",
+        "description": "Returns the historical list of all directed messages for the user.",
         "operationId": "get_inbox_inbox_get",
-        "parameters": [
+        "security": [
           {
-            "name": "since_id",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Since Id"
-            }
-          },
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "schema": {
               "type": "integer",
-              "default": 10,
+              "default": 20,
               "title": "Limit"
             }
           },
           {
-            "name": "type",
+            "name": "offset",
             "in": "query",
             "required": false,
             "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Type"
+              "type": "integer",
+              "default": 0,
+              "title": "Offset"
             }
           }
         ],
@@ -1093,7 +1120,13 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/InboxMessageRead"
+                  },
+                  "title": "Response Get Inbox Inbox Get"
+                }
               }
             }
           },
@@ -1116,8 +1149,13 @@
           "Inbox (Transactional Signals)"
         ],
         "summary": "Get Notifications",
-        "description": "Returns a high-priority polled queue of unread notifications for the user.\nNOTE: Currently returns mock data per v1.1.0 TDD for the MVP Phase.",
+        "description": "Returns a high-priority polled queue of unread notifications for the user.\nOnce fetched, the backend sets the polled_at timestamp to prevent duplicate polling.",
         "operationId": "get_notifications_notifications_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
         "parameters": [
           {
             "name": "limit",
@@ -1135,7 +1173,13 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/InboxMessageRead"
+                  },
+                  "title": "Response Get Notifications Notifications Get"
+                }
               }
             }
           },
@@ -1632,18 +1676,6 @@
             "type": "string",
             "title": "Summary Md"
           },
-          "data_feeds": {
-            "anyOf": [
-              {
-                "additionalProperties": true,
-                "type": "object"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Data Feeds"
-          },
           "fingerprint": {
             "anyOf": [
               {
@@ -1845,6 +1877,94 @@
         ],
         "title": "HubSignalCreate"
       },
+      "InboxMessageRead": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "type": {
+            "type": "string",
+            "title": "Type"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "content": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Content"
+          },
+          "payload": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Payload"
+          },
+          "actions": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Actions"
+          },
+          "priority": {
+            "type": "string",
+            "title": "Priority"
+          },
+          "polled_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Polled At"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "user_id",
+          "type",
+          "title",
+          "content",
+          "payload",
+          "actions",
+          "priority",
+          "polled_at",
+          "created_at"
+        ],
+        "title": "InboxMessageRead"
+      },
       "NotificationItem": {
         "properties": {
           "id": {
@@ -1904,6 +2024,17 @@
         ],
         "title": "ProgrammingLanguage"
       },
+      "RenderEngine": {
+        "type": "string",
+        "enum": [
+          "mermaid",
+          "d2",
+          "graphviz",
+          "tikz",
+          "plantuml"
+        ],
+        "title": "RenderEngine"
+      },
       "SignalType": {
         "type": "string",
         "enum": [
@@ -1927,7 +2058,8 @@
                 "type": "null"
               }
             ],
-            "title": "Version"
+            "title": "Version",
+            "default": "1.0.0"
           },
           "description": {
             "anyOf": [
@@ -2155,6 +2287,48 @@
           "rejected"
         ],
         "title": "SubmissionStatus"
+      },
+      "ToolRenderInput": {
+        "properties": {
+          "engine": {
+            "$ref": "#/components/schemas/RenderEngine",
+            "default": "mermaid"
+          },
+          "code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Code"
+          },
+          "prompt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Prompt"
+          },
+          "format": {
+            "type": "string",
+            "title": "Format",
+            "default": "png"
+          },
+          "theme": {
+            "type": "string",
+            "title": "Theme",
+            "default": "dark"
+          }
+        },
+        "type": "object",
+        "title": "ToolRenderInput"
       },
       "TransactionRead": {
         "properties": {

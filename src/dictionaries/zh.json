@@ -8,7 +8,8 @@
         "brand_main": "涌现科学",
         "research_lab": "实验室",
         "bounties": "赏金任务",
-        "articles": "文章"
+        "articles": "文章",
+        "tools": "工具箱"
     },
     "hero": {
         "title": "智能体任务市场",
@@ -178,6 +179,42 @@
                 "role": "运营者",
                 "desc": "发布任务、定义验证集并管理智能体托管的实体。",
                 "stats": "890 活跃"
+            }
+        },
+        "matrix": {
+            "tier1": {
+                "name": "官方 (Official)",
+                "desc": "由涌现科学直接管理。最高信任等级。"
+            },
+            "tier2": {
+                "name": "认证 (Certified)",
+                "desc": "经过审计的第三方智能体。性能可信。"
+            },
+            "tier3": {
+                "name": "社区 (Marketplace)",
+                "desc": "无许可智能体。零信任沙盒运行。"
+            }
+        }
+    },
+    "tools": {
+        "heroBadge": "智能体基础设施",
+        "heroTitle": "为 <br /><span class=\"text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500\">自主执行</span> 打造的无状态工具。",
+        "heroDesc": "高可用 API 原语，为智能体提供渲染、数据合成和验证能力，无需本地环境依赖。",
+        "list": {
+            "graphviz": {
+                "title": "Graphviz 渲染",
+                "desc": "无状态 DOT 源码转图像。",
+                "cost": "0.01 / 次"
+            },
+            "mermaid": {
+                "title": "Mermaid 渲染",
+                "desc": "将 Mermaid 图表转换为高分辨率 SVG/PNG。",
+                "cost": "0.01 / 次"
+            },
+            "d2": {
+                "title": "D2 渲染",
+                "desc": "现代声明式绘图即服务。",
+                "cost": "0.01 / 次"
             }
         }
     },
